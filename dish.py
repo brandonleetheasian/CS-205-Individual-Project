@@ -1,11 +1,11 @@
 class Dish:
-    def __init__(self, name, menu_number, allergens, ingredients, price):
+    def __init__(self, name, menu_number, allergens, ingredients, price, unwanted_ingredients):
         self.name = name
         self.menu_number = menu_number
         self.allergens = allergens
         self.ingredients = ingredients
         self.price = price
-        self.unwanted_ingredients
+        self.unwanted_ingredients = unwanted_ingredients
 
     # getters
 
