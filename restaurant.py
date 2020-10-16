@@ -1,11 +1,11 @@
-import dish
+from queue import PriorityQueue
 
 class Restaurant:
-    def __init__(self, menu, customers, money_made, order_line_up):
+    def __init__(self, menu):
         self.menu = menu
-        self.customers = customers
-        self.money_made = money_made
-        self.order_line_up = order_line_up
+        self.order_line_up = PriorityQueue
+        self.money_made = 0.0
+        self.customers = []
 
     def get_menu(self):
         return self.menu
@@ -20,4 +20,14 @@ class Restaurant:
         return self.order_line_up
 
     #add_customer(Customer)
-    #
+
+    def add_customer(self, customer):
+        self.customers.append(customer)
+        self.order_line_up.put(customer.get_precedence, customer.get_order())
+
+
+    def find_precendence(self, customer):
+        return customer.get_precedence()
+
+
+

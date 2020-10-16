@@ -1,6 +1,3 @@
-import dish
-
-
 class Customer:
     def __init__(self, name, phone_number, order, precedence):
         self.name = name
