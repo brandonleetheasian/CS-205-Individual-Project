@@ -62,6 +62,14 @@ class Restaurant:
         c_order = order.Order(checkout)
         return c_order
 
+    def order_nums_to_dish(self, order_num):
+        if self.check_order_nums([order_num]) == -1:
+            invalid = dish.Dish("Invalid", -1, [], -1, [])
+            return invalid
+        index = self.menu_nums.index(order_num)
+        c_dish = self.menu[index]
+        return c_dish
+
     # takes in name, phone number, and an array of order numbers, and adds the customer to customer line
     def take_order(self, name, number, order_nums):
         if self.check_order_nums(order_nums) == -1:
