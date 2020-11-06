@@ -119,10 +119,70 @@ class Restaurant:
             allergens = c_dish.get_allergens()
             return allergens
 
-    #list_ingredients method that returns the ingredients of a given dish
+    # list_ingredients method that returns the ingredients of a given dish
 
-    #add_unwanted_ingredients that returns -1 or 0 and removes an unwanted ingredient from the ingredients in a particular dish and adds it to unwanted ingredients in a particular order --> see similar method in dish
-    #NOTE: should take in an ingredient, an order, and a dish --> make sure that the order is valid, the dish in the order, and then if the ingredient is in the dish. If all are true, Do the operation and return 0. Else, return -1
+    def list_ingredients(self, dish_num):
+        invalid = order.Order([])
+        validation = self.check_order_nums(dish_num)
+        # put into array to check if dish num is valid
+        if validation == 0:
+            temp_dish_list = [dish_num]
+            # convert to dish
+            temp_dish = self.order_nums_to_dish(temp_dish_list)
+            # return dish ingredient
+            return temp_dish.get_ingredients()
+        # else
+        else:
+            return invalid
 
-    #remove unwanted ingredients that returns -1 of 0 and removes an unwanted ingredient from the unwanted ingredients list and readds it back into ingredients for a partular dish in a particulay order --> see similar method in dish
-    # NOTE: should take in an ingredient, an order, and a dish --> make sure that the order is valid, the dish in the order, and then if the ingredient is in unwanted list in the dish. If all are true, Do the operation and return 0. Else, return -1
+    # add_unwanted_ingredients that returns -1 or 0 and removes an unwanted ingredient from the ingredients in a
+    # particular dish and adds it to unwanted ingredients in a particular order --> see similar method in dish
+    # NOTE: should take in an ingredient, an order, and a dish --> make sure that the order is valid,
+    # the dish in the order, and then if the ingredient is in the dish. If all are true,
+    # Do the operation and return 0. Else, return -1
+
+    def add_unwanted_ingredients(self, unwanted_ingredient, customer, dish_object):
+        # see if the customer is in the line up
+        if customer not in self.customer_line_up:
+            return -1
+        # if the customer is in the line up, get the order
+        else:
+            temp_order = customer.get_order()
+            # get the dishes from the order
+            temp_order.order.get_checkout()
+
+            # if the given dish object is in the list of dishes from the order
+            if dish_object in temp_order:
+                # remove unwanted ingredient
+                dish_object.dish.add_unwanted_ingredients(unwanted_ingredient)
+                return 0
+            # if not in list of dishes
+            else:
+                return -1
+
+    # remove unwanted ingredients that returns -1 of 0 and removes an unwanted ingredient from the unwanted
+    # ingredients list and reads it back into ingredients for a particular dish in a particular
+    # order --> see similar method in dish
+    #  NOTE: should take in an ingredient, an order, and a dish --> make sure that the order is
+    #  valid, the dish in the order, and then if the ingredient is in unwanted list in the dish.
+    #  If all are true, Do the operation and return 0. Else, return -1
+
+    def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish_object):
+
+        # see if the customer is in the line up
+        if customer not in self.customer_line_up:
+            return -1
+        # if the customer is in the line up, get the order
+        else:
+            temp_order = customer.get_order()
+            # get the dishes from the order
+            temp_order.order.get_checkout()
+
+            # if the given dish object is in the list of dishes from the order
+            if dish_object in temp_order:
+                # remove unwanted ingredient
+                dish_object.dish.remove_unwanted_ingredients(unwanted_ingredient)
+                return 0
+            # if not in list of dishes
+            else:
+                return -1
