@@ -53,7 +53,8 @@ class Restaurant:
     # converts array of order numbers to order objects
     def order_nums_to_order(self, order_nums):
         if self.check_order_nums(order_nums) == -1:
-            return []
+            invalid = order.Order([])
+            return invalid
         checkout = []
         for num in order_nums:
             index = self.menu_nums.index(num)
