@@ -5,8 +5,10 @@ class Order:
         self.completed = False
 
     # getters
-    # calculate cost and return cost
+    def get_checkout(self):
+        return self.checkout
 
+    # calculate cost and return cost
     def calculate_cost(self):
         if len(self.checkout) == 0:
             return 0
