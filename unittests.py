@@ -70,6 +70,7 @@ class TestOrder(unittest.TestCase):
 
     # -------------------------------------------------------------
     def test_find_precedence(self):
+
         print('test_add_customer()')
         # find precedence of john, should return 1 (as John was added first)
         rc = self.restaurant.find_precedence(self.john)
@@ -93,3 +94,7 @@ class TestOrder(unittest.TestCase):
         rc = self.restaurant.find_precedence(self.jane)
         self.assertEqual(rc, 1)
 
+    # -------------------------------------------------------------
+    def test_check_order(self):
+        # checks  a specific item is on the menu
+        self.restaurant.check_order()
