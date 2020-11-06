@@ -11,5 +11,5 @@ class TestOrder(unittest.TestCase):
     def setUpClass(cls):
         # called one time, at beginning
         print('setUpClass()')
-
+        menu
         cls.restaurant

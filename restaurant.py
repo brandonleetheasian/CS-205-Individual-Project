@@ -27,9 +27,26 @@ class Restaurant:
             precedence = self.customer_line_up.index(customer) + 1
             return precedence
 
+    def check_order(self, order):
+        for dish in order:
+            if dish not in self.menu:
+                return -1
+        return 0
+
     def take_order(self, name, number, order):
-        customer = Customer(name, number, order)
-        self.customer_line_up.append(customer)
+        if self.check_order(order) == -1:
+            return -1
+        else:
+            customer = Customer(name, number, order)
+            self.add_customer(customer)
+        return 0
+
+    def add_to_order(self, customer, order):
+        if customer not in self.customer_line_up or self.check_order(order) == -1:
+            return -1
+        else:
+            return 0
+
 
     def cancel_order(self, customer):
         if customer not in self.customer_line_up:
