@@ -48,14 +48,14 @@ class Dish:
     # adds an ingredient to unwanted ingredients and removes ingredient from ingredients
     # checks if inputted ingredient is already in list. If not, return 0, if true, return 1
 
-    def add_unwanted_ingredients(self, ingredient):
+    def add_unwanted_ingredients(self, unwanted_ingredient):
         # if ingredient already in unwanted list, return -1
-        if ingredient in self.unwanted_ingredients:
+        if unwanted_ingredient in self.unwanted_ingredients:
             return -1
         # else, add in ingredient
         else:
-            self.unwanted_ingredients.append(ingredient)
-            self.ingredients.remove(ingredient)
+            self.unwanted_ingredients.append(unwanted_ingredient)
+            self.ingredients.remove(unwanted_ingredient)
             return 0
 
     # remove_unwanted_ingredient
