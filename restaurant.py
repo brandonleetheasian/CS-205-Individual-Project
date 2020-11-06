@@ -89,7 +89,6 @@ class Restaurant:
             (self.customer_line_up[index]).add_to_order(c_order)
             return 0
 
-
     def cancel_order(self, customer):
         if customer not in self.customer_line_up:
             return -1
