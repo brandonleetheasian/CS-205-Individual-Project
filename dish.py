@@ -9,31 +9,37 @@ class Dish:
 
     # getters
 
+    # get_name
     # returns the name of the dish (string)
 
     def get_name(self):
         return self.name
 
+    # get_menu_number
     # returns the menu number (integer)
 
     def get_menu_number(self):
         return self.menu_number
 
+    # get_allergens
     # returns the allergens(set)
 
     def get_allergens(self):
         return self.allergens
 
+    # get_ingredients
     # returns the ingredients(set)
 
     def get_ingredients(self):
         return self.ingredients
 
+    # get_price
     # returns the price(double)
 
     def get_price(self):
         return self.price
 
+    # add_unwanted_ingredients
     # adds an ingredient to unwanted ingredients and removes ingredient from ingredients
     # checks if inputted ingredient is already in list. If not, return 0, if true, return 1
 
@@ -47,6 +53,7 @@ class Dish:
             self.ingredients.remove(ingredient)
             return 0
 
+    # remove_unwanted_ingredient
     def remove_unwanted_ingredients(self, ingredient):
         # if ingredient not in unwanted list, return -1
         if ingredient not in self.unwanted_ingredients:

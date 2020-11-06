@@ -5,6 +5,8 @@ class Order:
         self.completed = False
 
     # getters
+
+    # calculate_cost
     # calculate cost and return cost
 
     def calculate_cost(self):
@@ -17,10 +19,13 @@ class Order:
                 self.total_cost += dish.get_price()
             return self.total_cost
 
+    # complete
     # complete the order
 
     def complete(self):
         self.completed = True
+
+    # to_string
 
     def to_string(self):
         s = ''
