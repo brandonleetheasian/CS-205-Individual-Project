@@ -39,7 +39,6 @@ class Restaurant:
     def check_order_nums(self, order_nums):
         if len(order_nums) == 0:
             return -1
-
         for nums in order_nums:
             if nums not in self.menu_nums:
                 return -1
@@ -110,3 +109,11 @@ class Restaurant:
             c_dish = self.order_nums_to_order([order_num])[0]
             allergens = c_dish.get_allergens()
             return allergens
+
+    #list_ingredients method that returns the ingredients of a given dish
+
+    #add_unwanted_ingredients that returns -1 or 0 and removes an unwanted ingredient from the ingredients in a particular dish and adds it to unwanted ingredients in a particular order --> see similar method in dish
+    #NOTE: should take in an ingredient, an order, and a dish --> make sure that the order is valid, the dish in the order, and then if the ingredient is in the dish. If all are true, Do the operation and return 0. Else, return -1
+
+    #remove unwanted ingredients that returns -1 of 0 and removes an unwanted ingredient from the unwanted ingredients list and readds it back into ingredients for a partular dish in a particulay order --> see similar method in dish
+    # NOTE: should take in an ingredient, an order, and a dish --> make sure that the order is valid, the dish in the order, and then if the ingredient is in unwanted list in the dish. If all are true, Do the operation and return 0. Else, return -1
