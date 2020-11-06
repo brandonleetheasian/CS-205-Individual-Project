@@ -43,7 +43,7 @@ class Dish:
             return -1
         # else, add in ingredient
         else:
-            self.unwanted_ingredients.add(ingredient)
+            self.unwanted_ingredients.append(ingredient)
             self.ingredients.remove(ingredient)
             return 0
 
@@ -54,7 +54,7 @@ class Dish:
         # else, remove ingredient and return 0
         else:
             self.unwanted_ingredients.remove(ingredient)
-            self.ingredients.add(ingredient)
+            self.ingredients.append(ingredient)
 
 
 

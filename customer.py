@@ -25,8 +25,13 @@ class Customer:
     def add_to_order(self, order_dish):
         self.order.append(order_dish)
 
+    # checks if dish is already in order, if not returns -1
     def remove_from_order(self, order_dish):
-        self.order.remove(order_dish)
+        if order_dish not in self.order:
+            return -1
+        else:
+            self.order.remove(order_dish)
+            return 0
 
     def served(self):
         self.served = True
