@@ -1,6 +1,7 @@
 import customer as c
 import dish
 import order
+import ingredient
 
 
 class Restaurant:
@@ -42,8 +43,16 @@ class Restaurant:
                 return -1
         return 0
 
+    # def check_order_num(self, order_num):
+    #     if order_num not in self.menu_nums:
+    #         return -1
+    #     else:
+    #         return 0
+
     # converts array of order numbers to order objects
     def order_nums_to_order(self, order_nums):
+        if self.check_order_nums(order_nums) == -1:
+            return []
         checkout = []
         for num in order_nums:
             index = self.menu_nums.index(num)
@@ -51,9 +60,9 @@ class Restaurant:
         c_order = order.Order(checkout)
         return c_order
 
-    # takes in name, phone number, and an array of order numbers
+    # takes in name, phone number, and an array of order numbers, and adds the customer to customer line
     def take_order(self, name, number, order_nums):
-        if self.check_order(order_nums) == -1:
+        if self.check_order_nums(order_nums) == -1:
             return -1
         else:
             c_order = self.order_nums_to_order(order_nums)
@@ -69,6 +78,7 @@ class Restaurant:
             index = self.customer_line_up.index(customer)
             (self.customer_line_up[index]).add_to_order(c_order)
             return 0
+
 
     def cancel_order(self, customer):
         if customer not in self.customer_line_up:
@@ -88,3 +98,13 @@ class Restaurant:
             self.money_made += order_finished.calculate_cost()
             self.completed_orders.append(customer_c)
             return 0
+
+    def list_allergens(self, order_num):
+        return_val = self.check_order_nums([order_num])
+        if return_val == -1:
+            invalid = ingredient.Ingredient("invalid", False)
+            return invalid
+        else:
+            c_dish = self.order_nums_to_order([order_num])[0]
+            allergens = c_dish.get_allergens()
+            return allergens

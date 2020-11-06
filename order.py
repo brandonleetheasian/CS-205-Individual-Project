@@ -28,3 +28,6 @@ class Order:
             s = s[:-2]
             s = s + ' = > ' + '$' + str(self.total_cost)
         return s
+
+    def __eq__(self, other):
+        return self.checkout == other.checkout and self.total_cost == other.total_cost
