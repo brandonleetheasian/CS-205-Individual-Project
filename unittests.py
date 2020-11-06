@@ -152,7 +152,67 @@ class TestOrder(unittest.TestCase):
 
     def test_order_nums_to_order(self):
         order_nums = [1]
-        actual_order = order.Order([self.dish1, self.dish3]))
+        dish_list = [self.dish1]
+        actual_order = order.Order(dish_list)
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [2]
+        dish_list = [self.dish2]
+        actual_order = order.Order(dish_list)
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [3]
+        dish_list = [self.dish3]
+        actual_order = order.Order(dish_list)
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [1, 2]
+        dish_list = [self.dish1, self.dish2]
+        actual_order = order.Order(dish_list)
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [1, 1]
+        dish_list = [self.dish1, self.dish1]
+        actual_order = order.Order(dish_list)
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        invalid_order = order.Order([])
+
+        order_nums = [6]
+        actual_order = invalid_order
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [6, 5]
+        actual_order = order.Order([])
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = []
+        actual_order = order.Order([])
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [1, 5]
+        actual_order = order.Order([])
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [2, 3, 3, 5]
+        actual_order = order.Order([])
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
+        order_nums = [5, 1]
+        actual_order = order.Order([])
+        returned_order = self.restaurant.order_nums_to_order(order_nums)
+        self.assertEqual(actual_order, returned_order)
+
 
     def test_take_order(self):
         # should return -1

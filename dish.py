@@ -73,6 +73,7 @@ class Dish:
         s = self.name
         return s
 
-
+    def __eq__(self, other):
+        return self.name == other.name and self.menu_number == other.menu_number and self.price == other.price and self.ingredients == other.ingredients
 
 
