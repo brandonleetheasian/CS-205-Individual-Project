@@ -97,166 +97,181 @@ class TestOrder(unittest.TestCase):
 
     # -------------------------------------------------------------
     def test_check_order_nums(self):
-
-        # invalid order, return -1
         order_nums = []
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
-        # valid order, return 0
         order_nums = [1, 2, 3]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, 0)
 
-        # valid order, return 0
         order_nums = [1]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, 0)
 
-        # valid order, return 0
         order_nums = [2]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, 0)
 
-        # valid order, return 0
         order_nums = [3]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, 0)
 
-        # valid order, return 0
         order_nums = [2, 3]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, 0)
 
-        # invalid order, return -1
         order_nums = [5]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
-        # invalid order, return -1
         order_nums = [1, 4]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
-        # invalid order, return -1
         order_nums = [4, 5]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
-        # invalid order, return -1
         order_nums = [6, 1]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
-        # valid order, return 0
         order_nums = [1, 1, 2, 3, 3]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, 0)
 
-        # invalid order, return -1
         order_nums = [1, 1, 2, 3, 4]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
-        # invalid order, return -1
         order_nums = [4, 4]
         returnVal = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(returnVal, -1)
 
 
     def test_order_nums_to_order(self):
-
-        # Valid order numbers in array list,
-        # when sent to order_nums_to_order returns the dish object
-
-        # 1 valid order
         order_nums = [1]
         dish_list = [self.dish1]
         actual_order = order.Order(dish_list)
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 1 valid order
         order_nums = [2]
         dish_list = [self.dish2]
         actual_order = order.Order(dish_list)
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 1 valid order
         order_nums = [3]
         dish_list = [self.dish3]
         actual_order = order.Order(dish_list)
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 2 valid orders
         order_nums = [1, 2]
         dish_list = [self.dish1, self.dish2]
         actual_order = order.Order(dish_list)
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 2 of the same valid orders
         order_nums = [1, 1]
         dish_list = [self.dish1, self.dish1]
         actual_order = order.Order(dish_list)
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # when order to nums is sent an invalid order, it will return an
-        # empty array list
+        invalid_order = order.Order([])
 
-        # 1 invalid order
         order_nums = [6]
-        actual_order = order.Order([])
+        actual_order = invalid_order
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 2 invalid orders
         order_nums = [6, 5]
         actual_order = order.Order([])
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # empty list
         order_nums = []
         actual_order = order.Order([])
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 1 valid and 1 invalid
         order_nums = [1, 5]
         actual_order = order.Order([])
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
-        # 3 valid and 1 invalid
         order_nums = [2, 3, 3, 5]
         actual_order = order.Order([])
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
-        # 1 invalid and 1 valid
+
         order_nums = [5, 1]
         actual_order = order.Order([])
         returned_order = self.restaurant.order_nums_to_order(order_nums)
         self.assertEqual(actual_order, returned_order)
 
+    def test_order_nums_to_dish(self):
+        order_num = 1
+        actual_dish = self.dish1
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
+        order_num = 2
+        actual_dish = self.dish2
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
+        order_num = 3
+        actual_dish = self.dish3
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
+        order_num = 4
+        actual_dish = dish.Dish("Invalid", -1, [], -1, [])
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
+        order_num = 31
+        actual_dish = dish.Dish("Invalid", -1, [], -1, [])
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
+        order_num = 0
+        actual_dish = dish.Dish("Invalid", -1, [], -1, [])
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
+        order_num = -1
+        actual_dish = dish.Dish("Invalid", -1, [], -1, [])
+        returned_dish = self.restaurant.order_nums_to_dish(order_num)
+        self.assertEqual(actual_dish, returned_dish)
+
 
     def test_take_order(self):
-        # invalid order request
+        empty_order = order.Order([])
+        # should return -1
         test_order = self.restaurant.take_order('clay', '1234567890', [6])
         self.assertEqual(test_order, -1)
+        # check if new user is in customer lineup
+        clay = customer.Customer('clay', '1234567890', empty_order)
+        lineup = self.restaurant.get_customer_line_up()
+        self.assertFalse(clay in lineup)
 
-        # valid order request
+        # should return 0
+        b_order = order.Order([self.dish2])
         test_order = self.restaurant.take_order('brandon', '9876543210', [2])
         self.assertEqual(test_order, 0)
+        # check if new user is in customer lineup
+        brandon = customer.Customer('brandon', '9876543210', b_order)
+        lineup = self.restaurant.get_customer_line_up()
+        self.assertTrue(brandon in lineup)
 
-        # valid order request
         test_order = self.restaurant.take_order('brandon', '9876543210', [1, 2, 3])
         self.assertEqual(test_order, 0)
 
-        # invalid order request
         test_order = self.restaurant.take_order('clay', '7777777777', [])
         self.assertEqual(test_order, -1)
 
