@@ -94,3 +94,40 @@ class TestOrder(unittest.TestCase):
     # def test_check_order(self):
     #     # checks if order
     #     self.restaurant.check_order()
+
+    # -------------------------------------------------------------
+    def test_check_order_nums(self):
+
+        orders_num_array = [1, 3]
+        temp_object = self.restaurant.order_nums_to_order(orders_num_array)
+        self.assertEqual(temp_object, self.john_order)
+
+        orders_num_array = [2, 3]
+        temp_object = self.restaurant.order_nums_to_order(orders_num_array)
+        self.assertEqual(temp_object, self.jane_order)
+
+        orders_num_array = []
+        temp_object = self.restaurant.order_nums_to_order(orders_num_array)
+        self.assertNotEqual(temp_object, self.john_order)
+
+    def test_take_order(self):
+        # should return -1
+        test_order = self.restaurant.take_order('clay', '1234567890', [6])
+        self.assertEqual(test_order, -1)
+        # should return 0
+        test_order = self.restaurant.take_order('brandon', '9876543210', [2])
+        self.assertEqual(test_order, 0)
+
+        test_order = self.restaurant.take_order('brandon', '9876543210', [1, 2, 3])
+        self.assertEqual(test_order, 0)
+
+        test_order = self.restaurant.take_order('clay', '7777777777', [])
+        self.assertEqual(test_order, -1)
+
+
+
+
+
+
+
+
