@@ -98,3 +98,12 @@ class TestOrder(unittest.TestCase):
     def test_check_order(self):
         # checks  a specific item is on the menu
         self.restaurant.check_order()
+
+    # -------------------------------------------------------------
+
+    def test_get_money_made(self):
+        total = self.restaurant.get_money_made()
+        self.assertTrue(total, 27.00)
+
+
+

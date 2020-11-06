@@ -1,5 +1,4 @@
 import customer as c
-import dish
 import order
 
 

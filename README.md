@@ -10,7 +10,11 @@
     
 # Github
 
+    https://github.com/brandonleetheasian/CS-205-Individual-Project
+
 # Trello
+    
+    
     
 # Classes
     - Restaurant
