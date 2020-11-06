@@ -45,8 +45,9 @@ class Restaurant:
         if customer not in self.customer_line_up or self.check_order(order) == -1:
             return -1
         else:
+            index = self.customer_line_up.index(customer)
+            (self.customer_line_up[index]).add_to_order(order)
             return 0
-
 
     def cancel_order(self, customer):
         if customer not in self.customer_line_up:
