@@ -5,7 +5,6 @@ class Customer:
     def __init__(self, name, phone_number, order_c):
         self.name = name
         self.phone_number = phone_number
-        self.served = False
         self.order = order_c
 
 # Getters
@@ -14,9 +13,6 @@ class Customer:
 
     def get_phone_number(self):
         return self.phone_number
-
-    def get_served (self):
-        return self.served
 
     def get_order(self):
         return self.order
@@ -36,14 +32,8 @@ class Customer:
             self.order.checkout.remove(order_dish)
             return 0
 
-    def served(self):
-        self.served = True
-
     def to_string(self):
-        str_served = "Waiting to be Served"
-        if self.served:
-            "Already Served"
-        s = self.name + ' => ' + str_served
+        s = self.name + ', ' + self.phone_number
         return s
 
     def __eq__(self, other):

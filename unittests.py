@@ -94,7 +94,7 @@ class TestOrder(unittest.TestCase):
         rc = self.restaurant.find_precedence(self.jane)
         self.assertEqual(rc, 1)
 
-    # -------------------------------------------------------------
-    def test_check_order(self):
-        # checks  a specific item is on the menu
-        self.restaurant.check_order()
+    # # -------------------------------------------------------------
+    # def test_check_order(self):
+    #     # checks if order
+    #     self.restaurant.check_order()

@@ -2,6 +2,7 @@ import customer as c
 import dish
 import order
 
+
 class Restaurant:
     def __init__(self, menu):
         self.menu = menu
@@ -34,12 +35,14 @@ class Restaurant:
             precedence = self.customer_line_up.index(customer) + 1
             return precedence
 
-    def check_order(self, order_nums):
+    # checks if array of menu numbers user wants are valid (in the menu)
+    def check_order_nums(self, order_nums):
         for nums in order_nums:
             if nums not in self.menu_nums:
                 return -1
         return 0
 
+    # converts array of order numbers to order objects
     def order_nums_to_order(self, order_nums):
         checkout = []
         for num in order_nums:
@@ -48,6 +51,7 @@ class Restaurant:
         c_order = order.Order(checkout)
         return c_order
 
+    # takes in name, phone number, and an array of order numbers
     def take_order(self, name, number, order_nums):
         if self.check_order(order_nums) == -1:
             return -1
@@ -57,12 +61,13 @@ class Restaurant:
             self.add_customer(customer)
         return 0
 
-    def add_to_order(self, customer, dish):
-        if customer not in self.customer_line_up or self.check_order(order) == -1:
+    def add_to_order(self, customer, order_nums):
+        if customer not in self.customer_line_up or self.check_order_nums(order_nums) == -1:
             return -1
         else:
+            c_order = self.order_nums_to_order(order_nums)
             index = self.customer_line_up.index(customer)
-            (self.customer_line_up[index]).add_to_order(order)
+            (self.customer_line_up[index]).add_to_order(c_order)
             return 0
 
     def cancel_order(self, customer):
