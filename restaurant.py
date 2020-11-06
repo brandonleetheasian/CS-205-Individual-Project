@@ -1,41 +1,33 @@
 import customer as c
+import dish
 import order
 
 
 class Restaurant:
-
     def __init__(self, menu):
         self.menu = menu
         self.money_made = 0.0
         self.customer_line_up = []
         self.completed_orders = []
         self.menu_str = []
-        for dish in self.menu:
-            self.menu_str.append(dish.get_name())
+        self.menu_nums = []
+        for r_dish in self.menu:
+            self.menu_str.append(r_dish.get_name())
+            self.menu_nums.append(r_dish.get_menu_number())
 
-    # get_menu
-    # returns the menu
+
     def get_menu(self):
         return self.menu
 
-    # get_customer_line_up
-    # returns the customer line up list
     def get_customer_line_up(self):
         return self.customer_line_up
 
-    # get_money_made
-    # returns money made double
     def get_money_made(self):
         return self.money_made
 
-    # add_customer
-    # adds a customer to the line list
     def add_customer(self, customer):
         self.customer_line_up.append(customer)
 
-    # find_precedence
-    # finds the precedence of a customer in the line
-    # if not found, the function will return -1
     def find_precedence(self, customer):
         if customer not in self.customer_line_up:
             return -1
@@ -43,39 +35,41 @@ class Restaurant:
             precedence = self.customer_line_up.index(customer) + 1
             return precedence
 
-    # check_order
-    # for every dish in the order, if the dish is not in the menu return -1
-    # else return 0
-    def check_order(self, order_object):
-        for dish_order in order_object:
-            if dish_order.dish.name not in self.menu_str:
+    # checks if array of menu numbers user wants are valid (in the menu)
+    def check_order_nums(self, order_nums):
+        for nums in order_nums:
+            if nums not in self.menu_nums:
                 return -1
         return 0
 
-    # take_order
-    # adds the customers order
-    def take_order(self, name, number, order_object):
-        if self.check_order(order_object) == -1:
+    # converts array of order numbers to order objects
+    def order_nums_to_order(self, order_nums):
+        checkout = []
+        for num in order_nums:
+            index = self.menu_nums.index(num)
+            checkout.append(self.menu[index])
+        c_order = order.Order(checkout)
+        return c_order
+
+    # takes in name, phone number, and an array of order numbers
+    def take_order(self, name, number, order_nums):
+        if self.check_order(order_nums) == -1:
             return -1
         else:
-            customer = c.Customer(name, number, order)
+            c_order = self.order_nums_to_order(order_nums)
+            customer = c.Customer(name, number, c_order)
             self.add_customer(customer)
         return 0
 
-    # add_to_order
-    # if the customer is not in the line up return -1
-    # else add the dish to the order
-    def add_to_order(self, customer, order):
-        if customer not in self.customer_line_up or self.check_order(order) == -1:
+    def add_to_order(self, customer, order_nums):
+        if customer not in self.customer_line_up or self.check_order_nums(order_nums) == -1:
             return -1
         else:
+            c_order = self.order_nums_to_order(order_nums)
             index = self.customer_line_up.index(customer)
-            (self.customer_line_up[index]).add_to_order(order)
+            (self.customer_line_up[index]).add_to_order(c_order)
             return 0
 
-    # cancel_order
-    # if the order is found, cancel the order and return 0
-    # else return -1 for customer not found
     def cancel_order(self, customer):
         if customer not in self.customer_line_up:
             return -1
@@ -83,9 +77,6 @@ class Restaurant:
             self.customer_line_up.remove(self.customer_line_up.index(customer))
             return 0
 
-    # completed_recent_order
-    # if the customer line up is empty return -1
-    # else
     def completed_recent_order(self):
         if len(self.customer_line_up) == 0:
             return -1

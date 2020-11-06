@@ -2,13 +2,12 @@ class Order:
     def __init__(self, checkout):
         self.checkout = checkout
         self.total_cost = self.calculate_cost()
-        self.completed = False
 
     # getters
+    def get_checkout(self):
+        return self.checkout
 
-    # calculate_cost
     # calculate cost and return cost
-
     def calculate_cost(self):
         if len(self.checkout) == 0:
             return 0
@@ -18,14 +17,6 @@ class Order:
                 dish = self.checkout[i]
                 self.total_cost += dish.get_price()
             return self.total_cost
-
-    # complete
-    # complete the order
-
-    def complete(self):
-        self.completed = True
-
-    # to_string
 
     def to_string(self):
         s = ''

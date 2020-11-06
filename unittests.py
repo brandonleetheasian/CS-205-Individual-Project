@@ -33,13 +33,9 @@ class TestOrder(unittest.TestCase):
         cls.dish2_ingredients = [cls.ingredient1_dish2, cls.ingredient2_dish2, cls.ingredient3_dish2, cls.ingredient4_dish2, cls.ingredient5_dish2]
         cls.dish3_ingredients = [cls.ingredient1_dish3, cls.ingredient2_dish3, cls.ingredient3_dish3, cls.ingredient4_dish3, cls.ingredient5_dish3]
 
-        cls.dish1_allergens = []
-        cls.dish2_allergens = [cls.ingredient2_dish2, cls.ingredient3_dish2, cls.ingredient4_dish2]
-        cls.dish3_allergens = [cls.ingredient1_dish3]
-
-        cls.dish1 = dish.Dish('French Fries', 1, cls.dish1_allergens, cls.dish1_ingredients, 5.00, [])
-        cls.dish2 = dish.Dish('Chicken Nuggets', 2, cls.dish2_allergens, cls.dish2_ingredients, 6.00, [])
-        cls.dish3 = dish.Dish('Hamburger', 3, cls.dish3_allergens, cls.dish3_ingredients, 8.00, [])
+        cls.dish1 = dish.Dish('French Fries', 1, cls.dish1_ingredients, 5.00, [])
+        cls.dish2 = dish.Dish('Chicken Nuggets', 2, cls.dish2_ingredients, 6.00, [])
+        cls.dish3 = dish.Dish('Hamburger', 3, cls.dish3_ingredients, 8.00, [])
 
         menu = [cls.dish1, cls.dish2, cls.dish3]
 
@@ -94,16 +90,7 @@ class TestOrder(unittest.TestCase):
         rc = self.restaurant.find_precedence(self.jane)
         self.assertEqual(rc, 1)
 
-    # -------------------------------------------------------------
-    def test_check_order(self):
-        # checks  a specific item is on the menu
-        self.restaurant.check_order()
-
-    # -------------------------------------------------------------
-
-    def test_get_money_made(self):
-        total = self.restaurant.get_money_made()
-        self.assertTrue(total, 27.00)
-
-
-
+    # # -------------------------------------------------------------
+    # def test_check_order(self):
+    #     # checks if order
+    #     self.restaurant.check_order()
