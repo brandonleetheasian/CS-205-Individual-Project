@@ -9,7 +9,7 @@ class Restaurant:
         self.completed_orders = []
         self.menu_str = []
         for dish in self.menu:
-            self.menu_str.append(dish.name)
+            self.menu_str.append(dish.get_name())
 
     def get_menu(self):
         return self.menu
@@ -20,14 +20,22 @@ class Restaurant:
     def get_money_made(self):
         return self.money_made
 
+    def get_customer_line_string(self):
+        string_line_up = []
+        for customer in self.customer_line_up:
+            string_line_up.append(customer.get_name())
+        return string_line_up
+
     def add_customer(self, customer):
         self.customer_line_up.append(customer)
 
     def find_precedence(self, customer):
-        if customer not in self.customer_line_up:
+        customer_line = self.get_customer_line_string()
+        customer_name = customer.get_name
+        if customer_name not in customer_line:
             return -1
         else:
-            precedence = self.customer_line_up.index(customer) + 1
+            precedence = customer_line.index(customer_name) + 1
             return precedence
 
     def check_order(self, order):
@@ -64,6 +72,8 @@ class Restaurant:
             return -1
         else:
             customer = self.customer_line_up.pop(0)
+            customer.served()
+            customer.order.completed()
             order_finished = customer.get_order()
             self.money_made += order_finished.calculate_cost
             self.completed_orders.append(customer)
