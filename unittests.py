@@ -2,6 +2,7 @@ import unittest
 import ingredient
 import customer
 import dish
+import order
 import restaurant
 
 
@@ -44,8 +45,11 @@ class TestOrder(unittest.TestCase):
 
         cls.restaurant = restaurant.Restaurant(menu)
 
-        cls.john = customer.Customer("John", "802-888-8888", [])
-        cls.jane = customer.Customer("John", "802-777-7777", [])
+        cls.john_order = order.Order([cls.dish1, cls.dish3])
+        cls.jane_order = order.Order([cls.dish2, cls.dish3])
+
+        cls.john = customer.Customer("John", "802-888-8888", cls.john_order)
+        cls.jane = customer.Customer("Jane", "802-777-7777", cls.jane_order)
 
         cls.restaurant.add_customer(cls.john)
         cls.restaurant.add_customer(cls.jane)
@@ -65,22 +69,27 @@ class TestOrder(unittest.TestCase):
         print('tearDown()')
 
     # -------------------------------------------------------------
-    def test_(self):
-        print('test_return()')
-        # return john's book--should return True
-        rc = self.library.return_book(self.john, self.book1)
-        self.assertTrue(rc)
+    def test_find_precedence(self):
+        print('test_add_customer()')
+        # find precedence of john, should return 1 (as John was added first)
+        rc = self.restaurant.find_precedence(self.john)
+        self.assertEqual(rc, 1)
 
-        # try to return the same book again--should return False
-        rc = self.library.return_book(self.john, self.book1)
-        self.assertFalse(rc)
+        # find precedence of Jane, should return 2 (as Jane was added second)
+        rc = self.restaurant.find_precedence(self.jane)
+        self.assertEqual(rc, 2)
 
-        # check that the library shows that john has no books checked out
-        books = self.library.get_checkouts(self.john)
-        self.assertEqual(len(books), 0)
+        # try on customer not in restaurant, should return -1
+        fake_customer = customer.Customer("Rob", "123-456-789", [])
+        rc = self.restaurant.find_precedence(fake_customer)
+        self.assertEqual(rc, -1)
 
-        # check that john shows no books checked out
-        # right now, this code is failing, because my code is incorrect--
-        # I'm returning to the library but not to Patron
-        books = self.john.get_checkouts()
-        self.assertEqual(len(books), 0)
+        # remove john, and then check if john precedence (should be -1)
+        self.restaurant.completed_recent_order()
+        rc = self.restaurant.find_precedence(self.john)
+        self.assertEqual(rc, -1)
+
+        # with john served, jane should now be precedence 1, check if this is so
+        rc = self.restaurant.find_precedence(self.jane)
+        self.assertEqual(rc, 1)
+

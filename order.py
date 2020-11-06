@@ -1,5 +1,5 @@
 class Order:
-    def __init__(self, customer, checkout):
+    def __init__(self, checkout):
         self.checkout = checkout
         self.total_cost = self.calculate_cost()
         self.completed = False
@@ -11,7 +11,8 @@ class Order:
         if len(self.checkout) == 0:
             return 0
         else:
-            for i in range(self.checkout.size):
+            self.total_cost = 0
+            for i in range(len(self.checkout)):
                 dish = self.checkout[i]
                 self.total_cost += dish.get_price()
             return self.total_cost
