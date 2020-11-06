@@ -16,7 +16,6 @@ class Restaurant:
             self.menu_str.append(r_dish.get_name())
             self.menu_nums.append(r_dish.get_menu_number())
 
-
     def get_menu(self):
         return self.menu
 
@@ -38,6 +37,9 @@ class Restaurant:
 
     # checks if array of menu numbers user wants are valid (in the menu)
     def check_order_nums(self, order_nums):
+        if len(order_nums) == 0:
+            return -1
+
         for nums in order_nums:
             if nums not in self.menu_nums:
                 return -1
