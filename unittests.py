@@ -2,4 +2,14 @@ import unittest
 import customer
 import dish
 import restaurant
-import
+
+
+class TestOrder(unittest.TestCase):
+    restaurant = None
+
+    @classmethod
+    def setUpClass(cls):
+        # called one time, at beginning
+        print('setUpClass()')
+
+        cls.restaurant

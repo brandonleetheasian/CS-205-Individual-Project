@@ -43,7 +43,7 @@ class Customer:
         str_served = "Waiting to be Served"
         if self.served:
             "Already Served"
-        s = self.name + ', ' + str_served
+        s = self.name + ' => ' + str_served
         return s
 
     def __eq__(self, other):

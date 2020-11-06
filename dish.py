@@ -55,7 +55,11 @@ class Dish:
         else:
             self.unwanted_ingredients.remove(ingredient)
             self.ingredients.append(ingredient)
-            return 0
+            return
+
+    def to_string(self):
+        s = self.name
+        return s
 
 
 

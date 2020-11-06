@@ -20,3 +20,13 @@ class Order:
 
     def complete(self):
         self.completed = True
+
+    def to_string(self):
+        s = ''
+        for dish in self.checkout:
+            s = s + str(dish) + ', '
+        if len(s) == 0:
+            s = 'no orders yet'
+        else:
+            s = s[:-2]
+        return s
