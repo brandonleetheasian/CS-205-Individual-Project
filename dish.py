@@ -55,6 +55,7 @@ class Dish:
         else:
             self.unwanted_ingredients.remove(ingredient)
             self.ingredients.append(ingredient)
+            return 0
 
 
 
