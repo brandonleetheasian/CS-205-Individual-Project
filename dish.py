@@ -1,11 +1,16 @@
+import ingredient
 class Dish:
-    def __init__(self, name, menu_number, allergens, ingredients, price, unwanted_ingredients):
+    def __init__(self, name, menu_number, ingredients, price, unwanted_ingredients):
         self.name = name
         self.menu_number = menu_number
-        self.allergens = allergens
+        self.allergens = []
         self.ingredients = ingredients
         self.price = price
         self.unwanted_ingredients = unwanted_ingredients
+
+        for element in ingredients:
+            if element.get_allergen:
+                self.allergens.append(element)
 
     # getters
 
