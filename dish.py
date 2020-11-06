@@ -35,7 +35,27 @@ class Dish:
         return self.price
 
     # adds an ingredient to unwanted ingredients and removes ingredient from ingredients
+    # checks if inputted ingredient is already in list. If not, return 0, if true, return 1
 
-    def add_unwanted_ingredients(self, ingreident):
-        self.unwanted_ingredients.add(ingreident)
-        self.ingredients.remove(ingreident)
+    def add_unwanted_ingredients(self, ingredient):
+        # if ingredient already in unwanted list, return -1
+        if ingredient in self.unwanted_ingredients:
+            return -1
+        # else, add in ingredient
+        else:
+            self.unwanted_ingredients.add(ingredient)
+            self.ingredients.remove(ingredient)
+            return 0
+
+    def remove_unwanted_ingredients(self, ingredient):
+        # if ingredient not in unwanted list, return -1
+        if ingredient not in self.unwanted_ingredients:
+            return -1
+        # else, remove ingredient and return 0
+        else:
+            self.unwanted_ingredients.remove(ingredient)
+            self.ingredients.add(ingredient)
+
+
+
+
