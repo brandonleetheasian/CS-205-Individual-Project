@@ -1,9 +1,12 @@
+import order
+
+
 class Customer:
-    def __init__(self, name, phone_number, order):
+    def __init__(self, name, phone_number, order_c):
         self.name = name
         self.phone_number = phone_number
         self.served = False
-        self.order = order
+        self.order = order_c
 
 # Getters
     def get_name(self):
@@ -23,14 +26,14 @@ class Customer:
     # served
 
     def add_to_order(self, order_dish):
-        self.order.append(order_dish)
+        self.order.checkout.append(order_dish)
 
     # checks if dish is already in order, if not returns -1
     def remove_from_order(self, order_dish):
-        if order_dish not in self.order:
+        if order_dish not in self.order.checkout:
             return -1
         else:
-            self.order.remove(order_dish)
+            self.order.checkout.remove(order_dish)
             return 0
 
     def served(self):
