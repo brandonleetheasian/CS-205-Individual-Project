@@ -29,4 +29,5 @@ class Order:
             s = 'no orders yet'
         else:
             s = s[:-2]
+            s = s + ' = > ' + '$' + str(self.total_cost)
         return s

@@ -7,6 +7,9 @@ class Restaurant:
         self.money_made = 0.0
         self.customer_line_up = []
         self.completed_orders = []
+        self.menu_str = []
+        for dish in self.menu:
+            self.menu_str.append(dish.name)
 
     def get_menu(self):
         return self.menu
@@ -29,7 +32,7 @@ class Restaurant:
 
     def check_order(self, order):
         for dish in order:
-            if dish not in self.menu:
+            if dish.name not in self.menu_str:
                 return -1
         return 0
 
