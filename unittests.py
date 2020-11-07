@@ -249,32 +249,58 @@ class TestOrder(unittest.TestCase):
         returned_dish = self.restaurant.order_nums_to_dish(order_num)
         self.assertEqual(actual_dish, returned_dish)
 
-
     def test_take_order(self):
         empty_order = order.Order([])
         # should return -1
-        test_order = self.restaurant.take_order('clay', '1234567890', [6])
+        test_order = self.restaurant.take_order('Clay', '1234567890', [6])
         self.assertEqual(test_order, -1)
         # check if new user is in customer lineup
-        clay = customer.Customer('clay', '1234567890', empty_order)
+        clay = customer.Customer('Clay', '1234567890', empty_order)
         lineup = self.restaurant.get_customer_line_up()
         self.assertFalse(clay in lineup)
 
         # should return 0
         b_order = order.Order([self.dish2])
-        test_order = self.restaurant.take_order('brandon', '9876543210', [2])
+        test_order = self.restaurant.take_order('Brandon', '9876543210', [2])
         self.assertEqual(test_order, 0)
         # check if new user is in customer lineup
-        brandon = customer.Customer('brandon', '9876543210', b_order)
+        brandon = customer.Customer('Brandon', '9876543210', b_order)
         lineup = self.restaurant.get_customer_line_up()
         self.assertTrue(brandon in lineup)
 
-        test_order = self.restaurant.take_order('brandon', '9876543210', [1, 2, 3])
+        n_order = order.Order([self.dish1, self.dish2, self.dish3])
+        test_order = self.restaurant.take_order('Nick', '9876543210', [1, 2, 3])
         self.assertEqual(test_order, 0)
+        # check if new user is in customer lineup
+        nick = customer.Customer('Nick', '9876543210', b_order)
+        lineup = self.restaurant.get_customer_line_up()
+        self.assertTrue(nick in lineup)
 
-        test_order = self.restaurant.take_order('clay', '7777777777', [])
+        j_order = order.Order([])
+        test_order = self.restaurant.take_order('Jake', '777777777', [])
         self.assertEqual(test_order, -1)
+        # check if new user is in customer lineup
+        jake = customer.Customer('Jake', '777777777', j_order)
+        lineup = self.restaurant.get_customer_line_up()
+        self.assertFalse(jake in lineup)
 
+        s_order = order.Order([self.dish1, self.dish2])
+        test_order = self.restaurant.take_order('Stephen', '4657485', [1, 2, 6])
+        self.assertEqual(test_order, -1)
+        # check if new user is in customer lineup
+        stephen = customer.Customer('Stephen', '4657485', s_order)
+        lineup = self.restaurant.get_customer_line_up()
+        self.assertFalse(stephen in lineup)
+
+    def test_add_to_order(self):
+        order = self.john.get_order()
+        return_val = self.restaurant.add_to_order(self.john, [1, 2])
+        self.assertEqual(return_val, 0)
+        # check if customer order changed
+        index = self.restaurant.get_customer_line_up().index(self.john)
+        customer_c = (self.restaurant.get_customer_line_up())[index]
+        order.add_dish(self.dish1, self.dish2)
+        self.assertEqual(customer_c.
 
 
 
