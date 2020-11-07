@@ -4,7 +4,7 @@ import customer
 import dish
 import order
 import restaurant
-
+import copy
 
 class TestOrder(unittest.TestCase):
     restaurant = None
@@ -98,56 +98,56 @@ class TestOrder(unittest.TestCase):
     # -------------------------------------------------------------
     def test_check_order_nums(self):
         order_nums = []
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [1, 2, 3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [1]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [2]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [2, 3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [5]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [1, 4]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [4, 5]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [6, 1]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [1, 1, 2, 3, 3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [1, 1, 2, 3, 4]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [4, 4]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
 
     def test_order_nums_to_order(self):
@@ -293,7 +293,17 @@ class TestOrder(unittest.TestCase):
         self.assertFalse(stephen in lineup)
 
     def test_add_to_order(self):
-        order_c = self.john.get_order()
+
+        order_c = copy.deepcopy(self.jane.get_order())
+        return_val = self.restaurant.add_to_order(self.jane, [1])
+        self.assertEqual(return_val, 0)
+        # check if customer order changed
+        index = self.restaurant.get_customer_line_up().index(self.jane)
+        customer_c = (self.restaurant.get_customer_line_up())[index]
+        order_c.add_dish([self.dish1])
+        self.assertEqual(customer_c.get_order(), order_c)
+
+        order_c = copy.deepcopy(self.john.get_order())
         return_val = self.restaurant.add_to_order(self.john, [1, 2])
         self.assertEqual(return_val, 0)
         # check if customer order changed
@@ -302,7 +312,16 @@ class TestOrder(unittest.TestCase):
         order_c.add_dish([self.dish1, self.dish2])
         self.assertEqual(customer_c.get_order(), order_c)
 
-        order_c = self.john.get_order()
+        order_c = copy.deepcopy(self.john.get_order())
+        return_val = self.restaurant.add_to_order(self.john, [1, 2, 3])
+        self.assertEqual(return_val, 0)
+        # check if customer order changed
+        index = self.restaurant.get_customer_line_up().index(self.john)
+        customer_c = (self.restaurant.get_customer_line_up())[index]
+        order_c.add_dish([self.dish1, self.dish2, self.dish3])
+        self.assertEqual(customer_c.get_order(), order_c)
+
+        order_c = copy.deepcopy(self.john.get_order())
         return_val = self.restaurant.add_to_order(self.john, [6])
         self.assertEqual(return_val, -1)
         # check if customer order changed
@@ -311,7 +330,7 @@ class TestOrder(unittest.TestCase):
         order_c.add_dish([])
         self.assertEqual(customer_c.get_order(), order_c)
 
-        order_c = self.jane.get_order()
+        order_c = copy.deepcopy(self.jane.get_order())
         return_val = self.restaurant.add_to_order(self.jane, [])
         self.assertEqual(return_val, -1)
         # check if customer order changed
@@ -320,13 +339,22 @@ class TestOrder(unittest.TestCase):
         order_c.add_dish([])
         self.assertEqual(customer_c.get_order(), order_c)
 
-        order_c = self.jane.get_order()
+        order_c = copy.deepcopy(self.jane.get_order())
         return_val = self.restaurant.add_to_order(self.jane, [1, 6])
         self.assertEqual(return_val, -1)
         # check if customer order changed
         index = self.restaurant.get_customer_line_up().index(self.jane)
         customer_c = (self.restaurant.get_customer_line_up())[index]
-        order_c.add_dish([self.dish1])
+        order_c.add_dish([])
+        self.assertEqual(customer_c.get_order(), order_c)
+
+        order_c = copy.deepcopy(self.jane.get_order())
+        return_val = self.restaurant.add_to_order(self.jane, [4, 6])
+        self.assertEqual(return_val, -1)
+        # check if customer order changed
+        index = self.restaurant.get_customer_line_up().index(self.jane)
+        customer_c = (self.restaurant.get_customer_line_up())[index]
+        order_c.add_dish([])
         self.assertEqual(customer_c.get_order(), order_c)
 
 
