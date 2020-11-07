@@ -86,7 +86,8 @@ class Restaurant:
         else:
             c_order = self.order_nums_to_order(order_nums)
             index = self.customer_line_up.index(customer)
-            (self.customer_line_up[index]).add_to_order(c_order)
+            customer_c = (self.customer_line_up[index])
+            customer_c.add_to_order(c_order)
             return 0
 
     def cancel_order(self, customer):

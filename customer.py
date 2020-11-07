@@ -21,8 +21,8 @@ class Customer:
     # remove from order --> accepts dish objects
     # served
 
-    def add_to_order(self, order_dish):
-        self.order.checkout.append(order_dish)
+    def add_to_order(self, order_c):
+        self.order.checkout.extend(order_c.checkout)
 
     # checks if dish is already in order, if not returns -1
     def remove_from_order(self, order_dish):

@@ -18,8 +18,8 @@ class Order:
                 self.total_cost += dish.get_price()
             return self.total_cost
 
-    def add_dish(self, dish):
-        self.checkout.append(dish)
+    def add_dish(self, dishes):
+        self.checkout.extend(dishes)
 
     def to_string(self):
         s = ''
