@@ -179,22 +179,23 @@ class Restaurant:
     #  valid, the dish in the order, and then if the ingredient is in unwanted list in the dish.
     #  If all are true, Do the operation and return 0. Else, return -1
 
-    def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish_object):
+    def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish):
 
         # see if the customer is in the line up
         if customer not in self.customer_line_up:
             return -1
         # if the customer is in the line up, get the order
         else:
-            temp_order = customer.get_order()
-            # get the dishes from the order
-            temp_order.order.get_checkout()
+            # find index of customer in lineup
+            index = self.customer_line_up.index(customer)
+            # get order
+            c_order = self.customer_line_up[index]
+            # get dishes from order
+            dish_list = c_order.get_checkout()
 
             # if the given dish object is in the list of dishes from the order
-            if dish_object in temp_order:
-                # remove unwanted ingredient
-                dish_object.dish.remove_unwanted_ingredients(unwanted_ingredient)
-                return 0
+            if dish in dish_list:
+                return dish.remove_unwanted_ingredients(unwanted_ingredient)
             # if not in list of dishes
             else:
                 return -1
