@@ -1,4 +1,6 @@
 import ingredient
+
+
 class Dish:
     def __init__(self, name, menu_number, ingredients, price, unwanted_ingredients):
         self.name = name
@@ -59,19 +61,23 @@ class Dish:
             return 0
 
     # remove_unwanted_ingredient
-    def remove_unwanted_ingredients(self, ingredient):
+    def remove_unwanted_ingredients(self, unwanted_ingredient):
         # if ingredient not in unwanted list, return -1
-        if ingredient not in self.unwanted_ingredients:
+        if unwanted_ingredient not in self.unwanted_ingredients:
             return -1
         # else, remove ingredient and return 0
         else:
-            self.unwanted_ingredients.remove(ingredient)
-            self.ingredients.append(ingredient)
+            self.unwanted_ingredients.remove(unwanted_ingredient)
+            self.ingredients.append(unwanted_ingredient)
             return
+
+    # to string
 
     def to_string(self):
         s = self.name
         return s
+
+    # equal
 
     def __eq__(self, other):
         return self.name == other.name and self.menu_number == other.menu_number and self.price == other.price and self.ingredients == other.ingredients

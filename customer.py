@@ -8,11 +8,18 @@ class Customer:
         self.order = order_c
 
 # Getters
+
+    # get name
+
     def get_name(self):
         return self.name
 
+    # get phone number
+
     def get_phone_number(self):
         return self.phone_number
+
+    # get order
 
     def get_order(self):
         return self.order
@@ -32,9 +39,13 @@ class Customer:
             self.order.checkout.remove(order_dish)
             return 0
 
+    # to string
+
     def to_string(self):
         s = self.name + ', ' + self.phone_number
         return s
+
+    # is equal
 
     def __eq__(self, other):
         return self.name == other.name and self.phone_number == other.phone_number
