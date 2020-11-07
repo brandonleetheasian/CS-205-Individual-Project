@@ -16,17 +16,29 @@ class Restaurant:
             self.menu_str.append(r_dish.get_name())
             self.menu_nums.append(r_dish.get_menu_number())
 
+    # getters
+
+    # get menu
+
     def get_menu(self):
         return self.menu
+
+    # get customer line up
 
     def get_customer_line_up(self):
         return self.customer_line_up
 
+    # get money made
+
     def get_money_made(self):
         return self.money_made
 
+    # add customer
+
     def add_customer(self, customer):
         self.customer_line_up.append(customer)
+
+    # find precedence
 
     def find_precedence(self, customer):
         if customer not in self.customer_line_up:
@@ -43,12 +55,6 @@ class Restaurant:
             if nums not in self.menu_nums:
                 return -1
         return 0
-
-    # def check_order_num(self, order_num):
-    #     if order_num not in self.menu_nums:
-    #         return -1
-    #     else:
-    #         return 0
 
     # converts array of order numbers to order objects
     def order_nums_to_order(self, order_nums):

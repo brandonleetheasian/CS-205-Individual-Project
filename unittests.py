@@ -50,7 +50,6 @@ class TestOrder(unittest.TestCase):
         cls.restaurant.add_customer(cls.john)
         cls.restaurant.add_customer(cls.jane)
 
-
     @classmethod
     def tearDownClass(cls):
         # called one time, at end
@@ -98,57 +97,56 @@ class TestOrder(unittest.TestCase):
     # -------------------------------------------------------------
     def test_check_order_nums(self):
         order_nums = []
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [1, 2, 3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [1]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [2]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [2, 3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [5]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [1, 4]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [4, 5]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [6, 1]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [1, 1, 2, 3, 3]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, 0)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, 0)
 
         order_nums = [1, 1, 2, 3, 4]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
         order_nums = [4, 4]
-        returnVal = self.restaurant.check_order_nums(order_nums)
-        self.assertEqual(returnVal, -1)
-
+        return_val = self.restaurant.check_order_nums(order_nums)
+        self.assertEqual(return_val, -1)
 
     def test_order_nums_to_order(self):
         order_nums = [1]
@@ -249,7 +247,6 @@ class TestOrder(unittest.TestCase):
         returned_dish = self.restaurant.order_nums_to_dish(order_num)
         self.assertEqual(actual_dish, returned_dish)
 
-
     def test_take_order(self):
         empty_order = order.Order([])
         # should return -1
@@ -274,11 +271,4 @@ class TestOrder(unittest.TestCase):
 
         test_order = self.restaurant.take_order('clay', '7777777777', [])
         self.assertEqual(test_order, -1)
-
-
-
-
-
-
-
 

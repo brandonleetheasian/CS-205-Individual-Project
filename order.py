@@ -18,6 +18,8 @@ class Order:
                 self.total_cost += dish.get_price()
             return self.total_cost
 
+    # to string
+
     def to_string(self):
         s = ''
         for dish in self.checkout:
@@ -28,6 +30,8 @@ class Order:
             s = s[:-2]
             s = s + ' = > ' + '$' + str(self.total_cost)
         return s
+
+    # equal
 
     def __eq__(self, other):
         return self.checkout == other.checkout and self.total_cost == other.total_cost
