@@ -15,5 +15,10 @@ class Ingredient:
     def get_allergen(self):
         return self.allergen
 
+    def to_string(self):
+        s = self.name
+        return s
+
     def __eq__(self, other):
         return self.name == other.name and self.allergen == other.allergen
+

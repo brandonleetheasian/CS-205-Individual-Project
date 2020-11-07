@@ -33,6 +33,11 @@ class Restaurant:
     def get_money_made(self):
         return self.money_made
 
+    # get completed orders
+
+    def get_completed_orders(self):
+        return self.completed_orders
+
     # add customer
 
     def add_customer(self, customer):
@@ -100,7 +105,7 @@ class Restaurant:
         if customer not in self.customer_line_up:
             return -1
         else:
-            self.customer_line_up.remove(self.customer_line_up.index(customer))
+            self.customer_line_up.remove(customer)
             return 0
 
     def completed_recent_order(self):
@@ -119,9 +124,10 @@ class Restaurant:
         return_val = self.check_order_nums([order_num])
         if return_val == -1:
             invalid = ingredient.Ingredient("invalid", False)
-            return invalid
+            invalid_list = [invalid]
+            return invalid_list
         else:
-            c_dish = self.order_nums_to_order([order_num])[0]
+            c_dish = self.order_nums_to_dish([order_num])
             allergens = c_dish.get_allergens()
             return allergens
 

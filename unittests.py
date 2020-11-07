@@ -6,7 +6,9 @@ import order
 import restaurant
 import copy
 
+
 class TestOrder(unittest.TestCase):
+
     restaurant = None
 
     @classmethod
@@ -14,41 +16,41 @@ class TestOrder(unittest.TestCase):
         # called one time, at beginning
         print('setUpClass()')
         cls.ingredient1_dish1 = ingredient.Ingredient('Potato', False)
-        cls.ingredient2_dish1 = ingredient.Ingredient('Canola Oil', False)
-        cls.ingredient3_dish1 = ingredient.Ingredient('Salt', False)
-
-        cls.ingredient1_dish2 = ingredient.Ingredient('Chicken', False)
-        cls.ingredient2_dish2 = ingredient.Ingredient('Flour', True)
-        cls.ingredient3_dish2 = ingredient.Ingredient('Bread Crumbs', True)
-        cls.ingredient4_dish2 = ingredient.Ingredient('Egg', True)
-        cls.ingredient5_dish2 = ingredient.Ingredient('Salt', False)
-
-        cls.ingredient1_dish3 = ingredient.Ingredient('Wheat Bun', True)
-        cls.ingredient2_dish3 = ingredient.Ingredient('Beef', False)
-        cls.ingredient3_dish3 = ingredient.Ingredient('Ketchup', False)
-        cls.ingredient4_dish3 = ingredient.Ingredient('Onions', False)
-        cls.ingredient5_dish3 = ingredient.Ingredient('Pickles', False)
-
-        cls.dish1_ingredients = [cls.ingredient1_dish1, cls.ingredient2_dish1, cls.ingredient3_dish1]
-        cls.dish2_ingredients = [cls.ingredient1_dish2, cls.ingredient2_dish2, cls.ingredient3_dish2, cls.ingredient4_dish2, cls.ingredient5_dish2]
-        cls.dish3_ingredients = [cls.ingredient1_dish3, cls.ingredient2_dish3, cls.ingredient3_dish3, cls.ingredient4_dish3, cls.ingredient5_dish3]
-
-        cls.dish1 = dish.Dish('French Fries', 1, cls.dish1_ingredients, 5.00, [])
-        cls.dish2 = dish.Dish('Chicken Nuggets', 2, cls.dish2_ingredients, 6.00, [])
-        cls.dish3 = dish.Dish('Hamburger', 3, cls.dish3_ingredients, 8.00, [])
-
-        menu = [cls.dish1, cls.dish2, cls.dish3]
-
-        cls.restaurant = restaurant.Restaurant(menu)
-
-        cls.john_order = order.Order([cls.dish1, cls.dish3])
-        cls.jane_order = order.Order([cls.dish2, cls.dish3])
-
-        cls.john = customer.Customer("John", "802-888-8888", cls.john_order)
-        cls.jane = customer.Customer("Jane", "802-777-7777", cls.jane_order)
-
-        cls.restaurant.add_customer(cls.john)
-        cls.restaurant.add_customer(cls.jane)
+        # cls.ingredient2_dish1 = ingredient.Ingredient('Canola Oil', False)
+        # cls.ingredient3_dish1 = ingredient.Ingredient('Salt', False)
+        #
+        # cls.ingredient1_dish2 = ingredient.Ingredient('Chicken', False)
+        # cls.ingredient2_dish2 = ingredient.Ingredient('Flour', True)
+        # cls.ingredient3_dish2 = ingredient.Ingredient('Bread Crumbs', True)
+        # cls.ingredient4_dish2 = ingredient.Ingredient('Egg', True)
+        # cls.ingredient5_dish2 = ingredient.Ingredient('Salt', False)
+        #
+        # cls.ingredient1_dish3 = ingredient.Ingredient('Wheat Bun', True)
+        # cls.ingredient2_dish3 = ingredient.Ingredient('Beef', False)
+        # cls.ingredient3_dish3 = ingredient.Ingredient('Ketchup', False)
+        # cls.ingredient4_dish3 = ingredient.Ingredient('Onions', False)
+        # cls.ingredient5_dish3 = ingredient.Ingredient('Pickles', False)
+        #
+        # cls.dish1_ingredients = [cls.ingredient1_dish1, cls.ingredient2_dish1, cls.ingredient3_dish1]
+        # cls.dish2_ingredients = [cls.ingredient1_dish2, cls.ingredient2_dish2, cls.ingredient3_dish2, cls.ingredient4_dish2, cls.ingredient5_dish2]
+        # cls.dish3_ingredients = [cls.ingredient1_dish3, cls.ingredient2_dish3, cls.ingredient3_dish3, cls.ingredient4_dish3, cls.ingredient5_dish3]
+        #
+        # cls.dish1 = dish.Dish('French Fries', 1, cls.dish1_ingredients, 5.00, [])
+        # cls.dish2 = dish.Dish('Chicken Nuggets', 2, cls.dish2_ingredients, 6.00, [])
+        # cls.dish3 = dish.Dish('Hamburger', 3, cls.dish3_ingredients, 8.00, [])
+        #
+        # cls.menu = [cls.dish1, cls.dish2, cls.dish3]
+        #
+        # cls.restaurant = restaurant.Restaurant(cls.menu)
+        #
+        # cls.john_order = order.Order([cls.dish1, cls.dish3])
+        # cls.jane_order = order.Order([cls.dish2, cls.dish3])
+        #
+        # cls.john = customer.Customer("John", "802-888-8888", cls.john_order)
+        # cls.jane = customer.Customer("Jane", "802-777-7777", cls.jane_order)
+        #
+        # cls.restaurant.add_customer(cls.john)
+        # cls.restaurant.add_customer(cls.jane)
 
 
     @classmethod
@@ -59,15 +61,53 @@ class TestOrder(unittest.TestCase):
     def setUp(self):
         # called before every test
         print('setUp()')
+        self.ingredient1_dish1 = ingredient.Ingredient('Potato', False)
+        self.ingredient2_dish1 = ingredient.Ingredient('Canola Oil', False)
+        self.ingredient3_dish1 = ingredient.Ingredient('Salt', False)
+
+        self.ingredient1_dish2 = ingredient.Ingredient('Chicken', False)
+        self.ingredient2_dish2 = ingredient.Ingredient('Flour', True)
+        self.ingredient3_dish2 = ingredient.Ingredient('Bread Crumbs', True)
+        self.ingredient4_dish2 = ingredient.Ingredient('Egg', True)
+        self.ingredient5_dish2 = ingredient.Ingredient('Salt', False)
+
+        self.ingredient1_dish3 = ingredient.Ingredient('Wheat Bun', True)
+        self.ingredient2_dish3 = ingredient.Ingredient('Beef', False)
+        self.ingredient3_dish3 = ingredient.Ingredient('Ketchup', False)
+        self.ingredient4_dish3 = ingredient.Ingredient('Onions', False)
+        self.ingredient5_dish3 = ingredient.Ingredient('Pickles', False)
+
+        self.dish1_ingredients = [self.ingredient1_dish1, self.ingredient2_dish1, self.ingredient3_dish1]
+        self.dish2_ingredients = [self.ingredient1_dish2, self.ingredient2_dish2, self.ingredient3_dish2, self.ingredient4_dish2, self.ingredient5_dish2]
+        self.dish3_ingredients = [self.ingredient1_dish3, self.ingredient2_dish3, self.ingredient3_dish3, self.ingredient4_dish3, self.ingredient5_dish3]
+
+        self.dish1 = dish.Dish('French Fries', 1, self.dish1_ingredients, 5.00, [])
+        self.dish2 = dish.Dish('Chicken Nuggets', 2, self.dish2_ingredients, 6.00, [])
+        self.dish3 = dish.Dish('Hamburger', 3, self.dish3_ingredients, 8.00, [])
+
+        self.menu = [self.dish1, self.dish2, self.dish3]
+
+        self.restaurant = restaurant.Restaurant(self.menu)
+
+        self.john_order = order.Order([self.dish1, self.dish3])
+        self.jane_order = order.Order([self.dish2, self.dish3])
+
+        self.john = customer.Customer("John", "802-888-8888", self.john_order)
+        self.jane = customer.Customer("Jane", "802-777-7777", self.jane_order)
+
+        self.restaurant.add_customer(self.john)
+        self.restaurant.add_customer(self.jane)
 
     def tearDown(self):
         # called after every test
         print('tearDown()')
 
+
     # -------------------------------------------------------------
     def test_find_precedence(self):
 
         print('test_add_customer()')
+        print(self.john in self.restaurant.get_customer_line_up())
         # find precedence of john, should return 1 (as John was added first)
         rc = self.restaurant.find_precedence(self.john)
         self.assertEqual(rc, 1)
@@ -356,6 +396,80 @@ class TestOrder(unittest.TestCase):
         customer_c = (self.restaurant.get_customer_line_up())[index]
         order_c.add_dish([])
         self.assertEqual(customer_c.get_order(), order_c)
+
+    def test_cancel_order(self):
+        empty_order = order.Order([])
+
+        return_val = self.restaurant.cancel_order(self.john)
+        self.assertEqual(return_val, 0)
+        # check if customer is still in line
+        line = self.restaurant.get_customer_line_up()
+        self.assertFalse(self.john in line)
+
+        return_val = self.restaurant.cancel_order(self.jane)
+        self.assertEqual(return_val, 0)
+        # check if customer is still in line
+        line = self.restaurant.get_customer_line_up()
+        self.assertFalse(self.john in line)
+
+        # check to see if we can remove john again, should return -1, because john is gone
+        return_val = self.restaurant.cancel_order(self.john)
+        self.assertEqual(return_val, -1)
+
+        brandon = customer.Customer("Brandon", "1111111111", empty_order)
+        return_val = self.restaurant.cancel_order(brandon)
+        self.assertEqual(return_val, -1)
+        # check if customer is still in line
+        line = self.restaurant.get_customer_line_up()
+        self.assertFalse(brandon in line)
+
+        # add brandon to line and then cancel, should return 0 because valid, then checks if brandon is in line (which he shouldn't be)
+        self.restaurant.add_customer(brandon)
+        return_val = self.restaurant.cancel_order(brandon)
+        self.assertEqual(return_val, 0)
+        self.assertFalse(brandon in line)
+
+    def test_completed_recent_order(self):
+        # complete most recent order (should be john), check line if john left, check if overall price went up by john's order, and then check if john is in completed orders
+        return_val = self.restaurant.completed_recent_order()
+        self.assertEqual(return_val, 0)
+        self.assertFalse(self.john in self.restaurant.get_customer_line_up())
+        self.assertEqual(self.john.get_order().calculate_cost(), self.restaurant.get_money_made())
+        self.assertTrue(self.john in self.restaurant.get_completed_orders())
+
+        # complete most recent order (should be jane now), check line if jane left, check if overall price went yp by jane's order (should now be jane + john), and then check if jane is in completed orders
+        return_val = self.restaurant.completed_recent_order()
+        self.assertEqual(return_val, 0)
+        self.assertFalse(self.jane in self.restaurant.get_customer_line_up())
+        self.assertEqual(self.jane.get_order().calculate_cost() + self.john.get_order().calculate_cost(), self.restaurant.get_money_made())
+        self.assertTrue(self.jane in self.restaurant.get_completed_orders())
+
+        # complete most recent order (should be no one now) and returned should be -1. Check if the completed line is still as expected (a list of john and jane)
+        expected_completed_list = [self.john, self.jane]
+        return_val = self.restaurant.completed_recent_order()
+        self.assertEqual(return_val, -1)
+        self.assertEqual(expected_completed_list, self.restaurant.get_completed_orders())
+
+    def test_list_allergens(self):
+        # list a valid order number 3, should return wheat bun in a list,
+        actual = self.restaurant.list_allergens(3)
+        expected = [self.ingredient1_dish1]
+        self.assertEqual(actual, expected)
+        # list a valid order number 2, should return a list of flour, breadcrumbs, and eggs
+        actual = self.restaurant.list_allergens(2)
+        expected = [self.ingredient2_dish2, self.ingredient3_dish2, self.ingredient4_dish2]
+        self.assertEqual(actual, expected)
+        # list a valid order number 1, should return an empty list
+        actual = self.restaurant.list_allergens(1)
+        expected = []
+        self.assertEqual(actual, expected)
+        # list a invalid order number -1, should return a list with an ingredient list of invalid
+        # list a invalid order number 5, should return a list with an ingredient list of invalid
+
+
+if __name__ == "__main__":
+    unittest.main()
+
 
 
 
