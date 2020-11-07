@@ -12,7 +12,7 @@ class Ingredient:
 
     # returns the allergen
 
-    def get_allergen(self):
+    def is_allergen(self):
         return self.allergen
 
     def to_string(self):

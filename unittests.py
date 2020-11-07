@@ -15,7 +15,7 @@ class TestOrder(unittest.TestCase):
     def setUpClass(cls):
         # called one time, at beginning
         print('setUpClass()')
-        cls.ingredient1_dish1 = ingredient.Ingredient('Potato', False)
+        # cls.ingredient1_dish1 = ingredient.Ingredient('Potato', False)
         # cls.ingredient2_dish1 = ingredient.Ingredient('Canola Oil', False)
         # cls.ingredient3_dish1 = ingredient.Ingredient('Salt', False)
         #
@@ -453,18 +453,55 @@ class TestOrder(unittest.TestCase):
     def test_list_allergens(self):
         # list a valid order number 3, should return wheat bun in a list,
         actual = self.restaurant.list_allergens(3)
-        expected = [self.ingredient1_dish1]
+        expected = [self.ingredient1_dish3]
         self.assertEqual(actual, expected)
+
         # list a valid order number 2, should return a list of flour, breadcrumbs, and eggs
         actual = self.restaurant.list_allergens(2)
         expected = [self.ingredient2_dish2, self.ingredient3_dish2, self.ingredient4_dish2]
         self.assertEqual(actual, expected)
+
         # list a valid order number 1, should return an empty list
         actual = self.restaurant.list_allergens(1)
         expected = []
         self.assertEqual(actual, expected)
+
         # list a invalid order number -1, should return a list with an ingredient list of invalid
+        actual = self.restaurant.list_allergens(4)
+        expected = [ingredient.Ingredient("invalid", False)]
+        self.assertEqual(actual, expected)
+
         # list a invalid order number 5, should return a list with an ingredient list of invalid
+        actual = self.restaurant.list_allergens(-1)
+        expected = [ingredient.Ingredient("invalid", False)]
+        self.assertEqual(actual, expected)
+
+    def test_list_ingredients(self):
+        # list a valid order number 1, should return a list of ingredients for french fries
+        actual = self.restaurant.list_ingredients(1)
+        expected = [self.ingredient1_dish1, self.ingredient2_dish1, self.ingredient3_dish1]
+        self.assertEqual(actual, expected)
+
+        # list a valid order number 2, should return a list of ingredients for chicken nuggets
+        actual = self.restaurant.list_ingredients(2)
+        expected = [self.ingredient1_dish2, self.ingredient2_dish2, self.ingredient3_dish2, self.ingredient4_dish2, self.ingredient5_dish2]
+        self.assertEqual(actual, expected)
+
+        # list a valid order number 1, should return a list of ingredients for hamburger
+        actual = self.restaurant.list_ingredients(3)
+        expected = [self.ingredient1_dish3, self.ingredient2_dish3, self.ingredient3_dish3, self.ingredient4_dish3, self.ingredient5_dish3]
+        self.assertEqual(actual, expected)
+
+        # list an invalid order number -1, should return an empty list of ingredients
+        actual = self.restaurant.list_ingredients(-1)
+        expected = []
+        self.assertEqual(actual, expected)
+
+        # list an invalid order number 10, should return an empty list of ingredients
+        actual = self.restaurant.list_ingredients(10)
+        expected = []
+        self.assertEqual(actual, expected)
+
 
 
 if __name__ == "__main__":

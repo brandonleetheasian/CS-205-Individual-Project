@@ -9,9 +9,8 @@ class Dish:
         self.ingredients = ingredients
         self.price = price
         self.unwanted_ingredients = unwanted_ingredients
-
         for element in ingredients:
-            if element.get_allergen:
+            if element.is_allergen():
                 self.allergens.append(element)
 
     # getters

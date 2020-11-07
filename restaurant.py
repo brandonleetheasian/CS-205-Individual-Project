@@ -127,20 +127,19 @@ class Restaurant:
             invalid_list = [invalid]
             return invalid_list
         else:
-            c_dish = self.order_nums_to_dish([order_num])
+            c_dish = self.order_nums_to_dish(order_num)
             allergens = c_dish.get_allergens()
             return allergens
 
     # list_ingredients method that returns the ingredients of a given dish
 
     def list_ingredients(self, dish_num):
-        invalid = order.Order([])
-        validation = self.check_order_nums(dish_num)
+        invalid = []
+        validation = self.check_order_nums([dish_num])
         # put into array to check if dish num is valid
         if validation == 0:
-            temp_dish_list = [dish_num]
             # convert to dish
-            temp_dish = self.order_nums_to_dish(temp_dish_list)
+            temp_dish = self.order_nums_to_dish(dish_num)
             # return dish ingredient
             return temp_dish.get_ingredients()
         # else
