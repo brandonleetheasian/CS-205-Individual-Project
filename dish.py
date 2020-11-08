@@ -69,14 +69,16 @@ class Dish:
 
     # remove_unwanted_ingredient
     def remove_unwanted_ingredients(self, unwanted_ingredient):
-        # if ingredient not in unwanted list, return -1
-        if unwanted_ingredient not in self.unwanted_ingredients:
+        if unwanted_ingredient not in self.ingredients or unwanted_ingredient not in self.unwanted_ingredients:
             return -1
-        # else, remove ingredient and return 0
+        # if ingredient already in unwanted list, return 0 (already done)
+        elif unwanted_ingredient in self.ingredients:
+            return 0
+        # else, add in ingredient
         else:
             self.unwanted_ingredients.remove(unwanted_ingredient)
             self.ingredients.append(unwanted_ingredient)
-            return
+            return 0
 
     # to string
 
