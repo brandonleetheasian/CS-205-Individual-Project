@@ -169,7 +169,11 @@ class Restaurant:
             # find the indices/index of dish
                 indices = [i for i, x in enumerate(dish_list) if x == c_dish]
                 for i in indices:
-                    dish_list[i].add_unwanted_ingredients(unwanted_ingredient)
+                    return_val = dish_list[i].add_unwanted_ingredients(unwanted_ingredient)
+                    if return_val == -1:
+                        return -1
+            else:
+                return -1
             return 0
 
 
@@ -200,4 +204,6 @@ class Restaurant:
                 indices = [i for i, x in enumerate(dish_list) if x == c_dish]
                 for i in indices:
                     dish_list[i].remove_unwanted_ingredients(unwanted_ingredient)
+            else:
+                return -1
             return 0

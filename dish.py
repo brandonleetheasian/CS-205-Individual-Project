@@ -56,7 +56,7 @@ class Dish:
     # checks if inputted ingredient is already in list. If not, return 0, if true, return 1
 
     def add_unwanted_ingredients(self, unwanted_ingredient):
-        if unwanted_ingredient not in self.ingredients or unwanted_ingredient not in self.unwanted_ingredients:
+        if unwanted_ingredient not in self.ingredients and unwanted_ingredient not in self.unwanted_ingredients:
             return -1
         # if ingredient already in unwanted list, return 0 (already done)
         elif unwanted_ingredient in self.unwanted_ingredients:

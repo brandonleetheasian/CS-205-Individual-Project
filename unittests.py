@@ -518,108 +518,140 @@ class TestOrder(unittest.TestCase):
         # check if the expected order is good
         expected_order = order.Order([expected_dish, self.dish3])
         self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [ingredient.Ingredient("Salt", False)])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
 
-        # # validity test, give a valid customer, a valid unwanted ingredient and a valid dish, should return 0
-        # # check if the customer's order changed
-        # # first, create a copy of the ingredients of the dish
-        # ingredients = copy.deepcopy(self.dish1_ingredients)
-        # # create the unwanted ingredient
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 1)
-        # self.assertEqual(return_val, 0)
-        # # make it so that the unwanted ingredient is removed from the copy of ingredients
-        # ingredients.remove(self.ingredient3_dish1)
-        # # check the dishes
-        # expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [unwanted_ingredient])
-        # # check if the expected order is good
-        # expected_order = order.Order([expected_dish, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
-        #
-        #
-        # # invalidity test, give a valid customer, a valid unwanted ingredient and a valid dish,
-        # # but the unwanted ingredient has already been excluded should return 0
-        # # check if the customer's order changed
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 1)
-        # self.assertEqual(return_val, 0)
-        # ingredients = copy.deepcopy(self.dish1_ingredients)
-        # ingredients.remove(unwanted_ingredient)
-        # expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [unwanted_ingredient])
-        # expected_order = order.Order([expected_dish, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
-        #
-        # # invalidity test, give a valid customer, an invalid unwanted ingredient and a valid dish, should return -1
-        # # check to see if the customer's order changed (it shouldn't have)
-        # unwanted_ingredient = ingredient.Ingredient("Lamb", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 1)
-        # self.assertEqual(return_val, -1)
-        # ingredients = copy.deepcopy(self.dish1_ingredients)
-        # ingredients.remove(unwanted_ingredient)
-        # expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [ingredient.Ingredient("Salt", False)])
-        # expected_order = order.Order([expected_dish, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
-        #
-        # # invalidity test, give a valid customer, a valid unwanted ingredient and a valid dish,
-        # # but the customer does not have that dish in his/her order should return -1
-        # # check to see if the customer's order changed (it shouldn't have)
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 1)
-        # self.assertEqual(return_val, -1)
-        # expected_order = order.Order([self.dish2, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[1].get_order(), expected_order)
-        #
-        # # invalidity test, give a valid customer, an ingredients that exists on the menu,
-        # # but an invalid dish, should return -1
-        # # check to see if the customer's order changed (it shouldn't have)
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 5)
-        # self.assertEqual(return_val, -1)
-        # ingredients = copy.deepcopy(self.dish1_ingredients)
-        # ingredients.remove(unwanted_ingredient)
-        # expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [ingredient.Ingredient("Salt", False)])
-        # expected_order = order.Order([expected_dish, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
-        #
-        #
-        # # invalidity test, give a valid customer, an ingredients that exists on the menu,
-        # # but a valid dish where that ingredient doesn't exist in, should return -1
-        # # check to see if the customer's order changed (it shouldn't have)
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 3)
-        # self.assertEqual(return_val, -1)
-        # expected_dish = dish.Dish("Hamburger", 3, self.dish3_ingredients, 8.00, [])
-        # expected_order = order.Order([self.dish2, expected_dish])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[1].get_order(), expected_order)
-        #
-        #
-        # # invalidity test, give an invalid customer, a valid unwanted ingredient, and a valid dish, should return -1
-        # # this invalid customer will have this valid dish in his "order", but will not be in the line up
-        # empty_order = order.Order([self.dish1])
-        # clay = customer.Customer('Clay', '1234567890', empty_order)
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, clay, 1)
-        # self.assertEqual(return_val, -1)
-        #
-        # # validity test, give a different valid customer, a valid unwanted ingredient and a valid dish, should return 0
-        # # check if the customer's order changed
-        # unwanted_ingredient = ingredient.Ingredient("Pickles", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 3)
-        # self.assertEqual(return_val, 0)
-        # expected_dish = dish.Dish("Hamburger", 3, self.dish1_ingredients, 8.00, [unwanted_ingredient])
-        # expected_order = order.Order([expected_dish, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
-        #
-        # # validity test, give a valid customer, a valid unwanted ingredient and a valid dish, should return 0
-        # # check if the customer's order changed
-        # unwanted_ingredient = ingredient.Ingredient("Salt", False)
-        # return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 1)
-        # self.assertEqual(return_val, 0)
-        # expected_dish = dish.Dish("French Fries", 1, self.dish1_ingredients, 5.00, [unwanted_ingredient])
-        # expected_order = order.Order([expected_dish, self.dish3])
-        # self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
-        #
-        #
+        # validity test, give a valid customer, a valid unwanted ingredient and a valid dish,
+        # but the unwanted ingredient has already been excluded should return 0
+        # check if the customer's order changed
+        # first, create a copy of the ingredients of the dish
+        ingredients = copy.deepcopy(self.dish1_ingredients)
+        # create the unwanted ingredient
+        unwanted_ingredient = ingredient.Ingredient("Salt", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 1)
+        self.assertEqual(return_val, 0)
+        # make it so that the unwanted ingredient is removed from the copy of ingredients
+        ingredients.remove(self.ingredient3_dish1)
+        # check the dishes
+        expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [unwanted_ingredient])
+        # check if the expected order is good
+        expected_order = order.Order([expected_dish, self.dish3])
+        self.assertEqual(self.restaurant.get_customer_line_up()[0].get_order(), expected_order)
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [ingredient.Ingredient("Salt", False)])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+        # invalidity test, give a valid customer, an invalid unwanted ingredient and a valid dish, should return -1
+        # check to see if the customer's order changed (it shouldn't have)
+        unwanted_ingredient = ingredient.Ingredient("Lamb", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 1)
+        self.assertEqual(return_val, -1)
+        expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [ingredient.Ingredient("Salt", False)])
+        expected_order = order.Order([expected_dish, self.dish3])
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [ingredient.Ingredient("Salt", False)])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+
+        # invalidity test, give a valid customer, a valid unwanted ingredient and a valid dish,
+        # but the customer does not have that dish in his/her order should return -1
+        # check to see if the customer's order changed (it shouldn't have)
+        unwanted_ingredient = ingredient.Ingredient("Salt", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 1)
+        self.assertEqual(return_val, -1)
+        expected_order = order.Order([self.dish2, self.dish3])
+        self.assertEqual(self.restaurant.get_customer_line_up()[1].get_order(), expected_order)
+        actual_order = (self.restaurant.get_customer_line_up()[1]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish2.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+        # invalidity test, give a valid customer, an ingredients that exists on the menu,
+        # but an invalid dish, should return -1
+        # check to see if the customer's order changed (it shouldn't have)
+        unwanted_ingredient = ingredient.Ingredient("Salt", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.john, 5)
+        self.assertEqual(return_val, -1)
+        expected_dish = dish.Dish("French Fries", 1, ingredients, 5.00, [ingredient.Ingredient("Salt", False)])
+        expected_order = order.Order([expected_dish, self.dish3])
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [ingredient.Ingredient("Salt", False)])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+
+        # invalidity test, give a valid customer, an ingredients that exists on the menu,
+        # but a valid dish where that ingredient doesn't exist in, should return -1
+        # check to see if the customer's order changed (it shouldn't have)
+        # first, create a copy of the ingredients of the dish
+        ingredients = copy.deepcopy(self.dish1_ingredients)
+        unwanted_ingredient = ingredient.Ingredient("Salt", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 3)
+        self.assertEqual(return_val, -1)
+        expected_dish = dish.Dish("Hamburger", 3, self.dish3_ingredients, 8.00, [])
+        expected_order = order.Order([self.dish2, expected_dish])
+        actual_order = (self.restaurant.get_customer_line_up()[1]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish2.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+
+        # invalidity test, give an invalid customer, a valid unwanted ingredient, and a valid dish, should return -1
+        # this invalid customer will have this valid dish in his "order", but will not be in the line up
+        empty_order = order.Order([self.dish1])
+        clay = customer.Customer('Clay', '1234567890', empty_order)
+        unwanted_ingredient = ingredient.Ingredient("Salt", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, clay, 1)
+        self.assertEqual(return_val, -1)
+
+        # validity test, give a different valid customer, a valid unwanted ingredient and a valid dish, should return 0
+        # check if the customer's order changed
+        ingredients = copy.deepcopy(self.dish3_ingredients)
+        unwanted_ingredient = ingredient.Ingredient("Pickles", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        ingredients.remove(self.ingredient5_dish3)
+        # check the dishes
+        actual_order = (self.restaurant.get_customer_line_up()[1]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish2.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [unwanted_ingredient])
+
+        # validity test, add another hamburger to jane, remove pickles, and check to see if both hamburgers are sans pickles (should return 0)
+        self.restaurant.add_to_order(self.jane, [3])
+        ingredients = copy.deepcopy(self.dish3_ingredients)
+        unwanted_ingredient = ingredient.Ingredient("Pickles", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        ingredients.remove(ingredient.Ingredient("Pickles", False))
+        # check the dishes
+        actual_order = (self.restaurant.get_customer_line_up()[1]).get_order()
+        # expected_order = copy.deepcopy(actual_order)
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish2.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[2].get_ingredients(), ingredients)
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), self.dish2.get_unwanted_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [unwanted_ingredient])
+        self.assertEqual(actual_order.get_checkout()[2].get_unwanted_ingredients(), [unwanted_ingredient])
+
+
         # # invalid test, give all invalid arguments, should return -1
+        empty_order = order.Order([self.dish1])
+        clay = customer.Customer('Clay', '1234567890', empty_order)
+        unwanted_ingredient = ingredient.Ingredient("Caramel", False)
+        return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, clay, -5)
+        self.assertEqual(return_val, -1)
 
 
 
