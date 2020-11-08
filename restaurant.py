@@ -186,7 +186,7 @@ class Restaurant:
     #  valid, the dish in the order, and then if the ingredient is in unwanted list in the dish.
     #  If all are true, Do the operation and return 0. Else, return -1
 
-    def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish_num):
+    def remove_unwanted_ingredients(self, unwanted_ingredient, customer, dish_num):
 
         if customer not in self.customer_line_up or self.check_order_nums([dish_num]) == -1 or unwanted_ingredient not in self.order_nums_to_dish(dish_num).get_ingredients():
             return -1

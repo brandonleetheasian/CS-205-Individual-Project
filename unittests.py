@@ -653,6 +653,109 @@ class TestOrder(unittest.TestCase):
         return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, clay, -5)
         self.assertEqual(return_val, -1)
 
+    def test_remove_unwanted_ingredients(self):
+        # validity test, add a valid unwanted ingredient, then remove it. ingredients should be complete and there should be no unwanted ingredients
+        # should return 0
+        self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        self.assertEqual(return_val, 0)
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish1.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+        # remove a valid ingredient (without there being any unwanted ingredient there). ingredients should be complete and there should be no unwanted ingredients
+        # should return 0
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        self.assertEqual(return_val, 0)
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish1.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+        # remove an invalid ingredient, should return -1
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Caramel", False), self.john, 1)
+        self.assertEqual(return_val, -1)
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish1.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+        # add two unwanted ingredients and then remove one of them
+        # validity test. Ingredients should be complete and there should be no unwanted ingredients
+        # should return 0
+        self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Canola Oil", False), self.john, 1)
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Canola Oil", False), self.john, 1)
+        self.assertEqual(return_val, 0)
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), [self.ingredient1_dish1, self.ingredient2_dish1])
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[0].get_unwanted_ingredients(), [ingredient.Ingredient("Salt", False)])
+        self.assertEqual(actual_order.get_checkout()[1].get_unwanted_ingredients(), [])
+
+        # make it so that the customer is invalid, should return -1
+        clay = customer.Customer("Clayton", "8023241582", order.Order([]))
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Canola Oil", False), clay, 1)
+        self.assertEqual(return_val, -1)
+
+        # make it so that the order number is invalid, should return -1
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Canola Oil", False), self.john, 6)
+        self.assertEqual(return_val, -1)
+
+        # make it so that all fields are invalid, should return -1
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("caramel", False), clay, 5)
+        self.assertEqual(return_val, -1)
+
+        # make all ingredients unwanted, and then add them all back for jane, should return 0
+        self.restaurant.add_unwanted_ingredients(self.ingredient1_dish3, self.jane, 3)
+        self.restaurant.add_unwanted_ingredients(self.ingredient2_dish3, self.jane, 3)
+        self.restaurant.add_unwanted_ingredients(self.ingredient3_dish3, self.jane, 3)
+        self.restaurant.add_unwanted_ingredients(self.ingredient4_dish3, self.jane, 3)
+        self.restaurant.add_unwanted_ingredients(self.ingredient5_dish3, self.jane, 3)
+
+        actual_order = (self.restaurant.get_customer_line_up()[1]).get_order()
+        return_val = self.restaurant.remove_unwanted_ingredients(self.ingredient1_dish3, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), [self.ingredient1_dish3])
+
+        return_val = self.restaurant.remove_unwanted_ingredients(self.ingredient2_dish3, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), [self.ingredient1_dish3, self.ingredient2_dish3])
+
+        return_val = self.restaurant.remove_unwanted_ingredients(self.ingredient3_dish3, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), [self.ingredient1_dish3, self.ingredient2_dish3, self.ingredient3_dish3])
+
+        return_val = self.restaurant.remove_unwanted_ingredients(self.ingredient4_dish3, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), [self.ingredient1_dish3, self.ingredient2_dish3, self.ingredient3_dish3, self.ingredient4_dish3])
+
+        return_val = self.restaurant.remove_unwanted_ingredients(self.ingredient5_dish3, self.jane, 3)
+        self.assertEqual(return_val, 0)
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), [self.ingredient1_dish3, self.ingredient2_dish3, self.ingredient3_dish3, self.ingredient4_dish3, self.ingredient5_dish3])
+
+        # add two of the same dishes and remove an ingredient and then re-add them (should return 0)
+        # add two hamburgers to jane and remove pickles, and then re-add pickles and see if both have pickles now (as they should)
+
+        self.restaurant.add_to_order(self.jane, [3])
+        self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Pickles", False), self.jane, 3)
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Pickles", False), self.jane, 3)
+        self.assertEqual(return_val, 0)
+        actual_order = (self.restaurant.get_customer_line_up()[1]).get_order()
+        self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[2].get_ingredients(), self.dish3.get_ingredients())
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
