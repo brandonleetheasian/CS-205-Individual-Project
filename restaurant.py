@@ -169,7 +169,7 @@ class Restaurant:
             # find the indices/index of dish
                 indices = [i for i, x in enumerate(dish_list) if x == c_dish]
                 for i in indices:
-                    dish_list[index].add_unwanted_ingredients(unwanted_ingredient)
+                    dish_list[i].add_unwanted_ingredients(unwanted_ingredient)
             return 0
 
 
@@ -184,13 +184,8 @@ class Restaurant:
 
     def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish_num):
 
-        # see if the customer is in the line up
-        if customer not in self.customer_line_up:
+        if customer not in self.customer_line_up or self.check_order_nums([dish_num]) == -1 or unwanted_ingredient not in self.order_nums_to_dish(dish_num).get_ingredients():
             return -1
-        # if the customer is in the line up, check if dish num is valid
-        elif self.check_order_nums([dish_num]) == -1:
-            return -1
-        # if customer and dish are valid, find the customer's order
         else:
             # find index of customer in lineup
             index = self.customer_line_up.index(customer)
@@ -201,13 +196,8 @@ class Restaurant:
             c_dish = self.order_nums_to_dish(dish_num)
             # if the given dish object is in the list of dishes from the order
             if c_dish in dish_list:
-                # find the index of dish
-                index = dish_list.index(c_dish)
-                u_ingredients = dish_list[index].get_unwanted_ingredients()
-                if unwanted_ingredient in u_ingredients:
-                    return dish_list[index].remove_unwanted_ingredients(unwanted_ingredient)
-                else:
-                    return -1
-            # if not in list of dishes
-            else:
-                return -1
+            # find the indices/index of dish
+                indices = [i for i, x in enumerate(dish_list) if x == c_dish]
+                for i in indices:
+                    dish_list[i].remove_unwanted_ingredients(unwanted_ingredient)
+            return 0
