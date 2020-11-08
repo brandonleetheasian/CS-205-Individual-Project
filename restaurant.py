@@ -154,7 +154,32 @@ class Restaurant:
     # Do the operation and return 0. Else, return -1
 
     def add_unwanted_ingredients(self, unwanted_ingredient, customer, dish_num):
-        if customer
+        if customer not in self.customer_line_up or self.check_order_nums([dish_num]) == -1 or unwanted_ingredient not in self.order_nums_to_dish(dish_num).get_ingredients():
+            return -1
+        else:
+            # find index of customer in lineup
+            index = self.customer_line_up.index(customer)
+            # get order
+            c_order = self.customer_line_up[index].get_order()
+            # get dishes from order
+            dish_list = c_order.get_checkout()
+            c_dish = self.order_nums_to_dish(dish_num)
+            # if the given dish object is in the list of dishes from the order
+            if c_dish in dish_list:
+            # find the indices/index of dish
+                indices = [i for i, x in enumerate(dish_list) if x == c_dish]
+                # we assume that all dishes that share the same name will be the same
+                ingredients = dish_list[indices[0]].get_ingredients()
+                u_ingredients = dish_list[indices[0]].get_unwanted_ingredients()
+                if unwanted_ingredient in ingredients or unwanted_ingredient in u_ingredients:
+                    return_val = 0
+                    for i in indices:
+                        dish_list[index].add_unwanted_ingredients(unwanted_ingredient)
+                else:
+                    return -1
+            return 0
+
+
         # # see if the customer is in the line up
         # if customer not in self.customer_line_up:
         #     return -1
