@@ -106,7 +106,7 @@ class TestOrder(unittest.TestCase):
     # -------------------------------------------------------------
     def test_find_precedence(self):
 
-        print('test_add_customer()')
+        print('test_find_precedence()')
         print(self.john in self.restaurant.get_customer_line_up())
         # find precedence of john, should return 1 (as John was added first)
         rc = self.restaurant.find_precedence(self.john)
@@ -137,6 +137,8 @@ class TestOrder(unittest.TestCase):
 
     # -------------------------------------------------------------
     def test_check_order_nums(self):
+
+        print('test_check_order_nums()')
         order_nums = []
         return_val = self.restaurant.check_order_nums(order_nums)
         self.assertEqual(return_val, -1)
@@ -191,6 +193,8 @@ class TestOrder(unittest.TestCase):
 
 
     def test_order_nums_to_order(self):
+
+        print('test_order_nums_to_order()')
         order_nums = [1]
         dish_list = [self.dish1]
         actual_order = order.Order(dish_list)
@@ -254,6 +258,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(actual_order, returned_order)
 
     def test_order_nums_to_dish(self):
+
+        print('test_order_nums_to_dish()')
         order_num = 1
         actual_dish = self.dish1
         returned_dish = self.restaurant.order_nums_to_dish(order_num)
@@ -290,6 +296,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(actual_dish, returned_dish)
 
     def test_take_order(self):
+
+        print('test_take_order()')
         empty_order = order.Order([])
         # should return -1
         test_order = self.restaurant.take_order('Clay', '1234567890', [6])
@@ -334,6 +342,7 @@ class TestOrder(unittest.TestCase):
 
     def test_add_to_order(self):
 
+        print('test_add_to_order()')
         order_c = copy.deepcopy(self.jane.get_order())
         return_val = self.restaurant.add_to_order(self.jane, [1])
         self.assertEqual(return_val, 0)
@@ -398,6 +407,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(customer_c.get_order(), order_c)
 
     def test_cancel_order(self):
+
+        print('test_cancel_order()')
         empty_order = order.Order([])
 
         return_val = self.restaurant.cancel_order(self.john)
@@ -430,6 +441,8 @@ class TestOrder(unittest.TestCase):
         self.assertFalse(brandon in line)
 
     def test_completed_recent_order(self):
+
+        print('test_completed_recent_order()')
         # complete most recent order (should be john), check line if john left, check if overall price went up by john's order, and then check if john is in completed orders
         return_val = self.restaurant.completed_recent_order()
         self.assertEqual(return_val, 0)
@@ -451,6 +464,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(expected_completed_list, self.restaurant.get_completed_orders())
 
     def test_list_allergens(self):
+
+        print('test_list_allergens()')
         # list a valid order number 3, should return wheat bun in a list,
         actual = self.restaurant.list_allergens(3)
         expected = [self.ingredient1_dish3]
@@ -477,6 +492,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_list_ingredients(self):
+
+        print('test_list_ingredients()')
         # list a valid order number 1, should return a list of ingredients for french fries
         actual = self.restaurant.list_ingredients(1)
         expected = [self.ingredient1_dish1, self.ingredient2_dish1, self.ingredient3_dish1]
@@ -503,6 +520,8 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_add_unwanted_ingredients(self):
+
+        print('test_add_unwanted_ingredients()')
         # validity test, give a valid customer, a valid unwanted ingredient and a valid dish, should return 0
         # check if the customer's order changed
         # first, create a copy of the ingredients of the dish
@@ -666,6 +685,8 @@ class TestOrder(unittest.TestCase):
 
 
     def test_remove_unwanted_ingredients(self):
+
+        print('test_remove_unwanted_ingredients()')
         # validity test, add a valid unwanted ingredient, then remove it. ingredients should be complete and there should be no unwanted ingredients
         # should return 0
         self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
