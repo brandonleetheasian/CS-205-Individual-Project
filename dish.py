@@ -39,6 +39,12 @@ class Dish:
     def get_ingredients(self):
         return self.ingredients
 
+    # get_unwanted_ingredients
+    # returns the unwanted ingredients(set)
+
+    def get_unwanted_ingredients(self):
+        return self.unwanted_ingredients
+
     # get_price
     # returns the price(double)
 
@@ -50,9 +56,11 @@ class Dish:
     # checks if inputted ingredient is already in list. If not, return 0, if true, return 1
 
     def add_unwanted_ingredients(self, unwanted_ingredient):
-        # if ingredient already in unwanted list, return -1
-        if unwanted_ingredient in self.unwanted_ingredients:
+        if unwanted_ingredient not in self.ingredients or unwanted_ingredient not in self.unwanted_ingredients:
             return -1
+        # if ingredient already in unwanted list, return 0 (already done)
+        elif unwanted_ingredient in self.unwanted_ingredients:
+            return 0
         # else, add in ingredient
         else:
             self.unwanted_ingredients.append(unwanted_ingredient)
@@ -79,6 +87,6 @@ class Dish:
     # equal
 
     def __eq__(self, other):
-        return self.name == other.name and self.menu_number == other.menu_number and self.price == other.price and self.ingredients == other.ingredients
+        return self.name == other.name and self.menu_number == other.menu_number and self.price == other.price
 
 

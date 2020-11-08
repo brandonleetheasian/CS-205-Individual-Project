@@ -2,6 +2,7 @@ import customer as c
 import dish
 import order
 import ingredient
+import copy
 
 
 class Restaurant:
@@ -95,7 +96,7 @@ class Restaurant:
         if customer not in self.customer_line_up or self.check_order_nums(order_nums) == -1:
             return -1
         else:
-            c_order = self.order_nums_to_order(order_nums)
+            c_order = copy.deepcopy(self.order_nums_to_order(order_nums))
             index = self.customer_line_up.index(customer)
             customer_c = (self.customer_line_up[index])
             customer_c.add_to_order(c_order)
@@ -152,25 +153,41 @@ class Restaurant:
     # the dish in the order, and then if the ingredient is in the dish. If all are true,
     # Do the operation and return 0. Else, return -1
 
-    def add_unwanted_ingredients(self, unwanted_ingredient, customer, dish):
-        # see if the customer is in the line up
-        if customer not in self.customer_line_up:
-            return -1
-        # if the customer is in the line up, get the order
-        else:
-            # find index of customer in lineup
-            index = self.customer_line_up.index(customer)
-            # get order
-            c_order = self.customer_line_up[index]
-            # get dishes from order
-            dish_list = c_order.get_checkout()
-
-            # if the given dish object is in the list of dishes from the order
-            if dish in dish_list:
-                return dish.add_unwanted_ingredients(unwanted_ingredient)
-            # if not in list of dishes
-            else:
-                return -1
+    def add_unwanted_ingredients(self, unwanted_ingredient, customer, dish_num):
+        if customer
+        # # see if the customer is in the line up
+        # if customer not in self.customer_line_up:
+        #     return -1
+        # # if the customer is in the line up, check if dish num is valid
+        # elif self.check_order_nums([dish_num]) == -1:
+        #     return -1
+        # # if customer and dish are valid, find the customer's order
+        # else:
+        #     # find index of customer in lineup
+        #     index = self.customer_line_up.index(customer)
+        #     # get order
+        #     c_order = self.customer_line_up[index].get_order()
+        #     # get dishes from order
+        #     dish_list = c_order.get_checkout()
+        #     c_dish = self.order_nums_to_dish(dish_num)
+        #     # if the given dish object is in the list of dishes from the order
+        #     if c_dish in dish_list:
+        #         # find the indices/index of dish
+        #         indices = [i for i, x in enumerate(dish_list) if x == c_dish]
+        #         # we assume that all dishes that share the same name will be the same
+        #         ingredients = dish_list[indices[0]].get_ingredients()
+        #         u_ingredients = dish_list[indices[0]].get_unwanted_ingredients()
+        #         if unwanted_ingredient in ingredients or unwanted_ingredient in u_ingredients:
+        #             return_val = 0
+        #             for i in indices:
+        #                 return_val = dish_list[index].add_unwanted_ingredients(unwanted_ingredient)
+        #                 if return_val == -1:
+        #                     return return_val
+        #             return return_val
+        #
+        #     # if not in list of dishes
+        #     else:
+        #         return -1
 
     # remove unwanted ingredients that returns -1 of 0 and removes an unwanted ingredient from the unwanted
     # ingredients list and reads it back into ingredients for a particular dish in a particular
@@ -179,23 +196,32 @@ class Restaurant:
     #  valid, the dish in the order, and then if the ingredient is in unwanted list in the dish.
     #  If all are true, Do the operation and return 0. Else, return -1
 
-    def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish):
+    def remove_unwanted_ingredient(self, unwanted_ingredient, customer, dish_num):
 
         # see if the customer is in the line up
         if customer not in self.customer_line_up:
             return -1
-        # if the customer is in the line up, get the order
+        # if the customer is in the line up, check if dish num is valid
+        elif self.check_order_nums([dish_num]) == -1:
+            return -1
+        # if customer and dish are valid, find the customer's order
         else:
             # find index of customer in lineup
             index = self.customer_line_up.index(customer)
             # get order
-            c_order = self.customer_line_up[index]
+            c_order = self.customer_line_up[index].get_order()
             # get dishes from order
             dish_list = c_order.get_checkout()
-
+            c_dish = self.order_nums_to_dish(dish_num)
             # if the given dish object is in the list of dishes from the order
-            if dish in dish_list:
-                return dish.remove_unwanted_ingredients(unwanted_ingredient)
+            if c_dish in dish_list:
+                # find the index of dish
+                index = dish_list.index(c_dish)
+                u_ingredients = dish_list[index].get_unwanted_ingredients()
+                if unwanted_ingredient in u_ingredients:
+                    return dish_list[index].remove_unwanted_ingredients(unwanted_ingredient)
+                else:
+                    return -1
             # if not in list of dishes
             else:
                 return -1
