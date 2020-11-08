@@ -653,6 +653,18 @@ class TestOrder(unittest.TestCase):
         return_val = self.restaurant.add_unwanted_ingredients(unwanted_ingredient, clay, -5)
         self.assertEqual(return_val, -1)
 
+        # for john, add an unwanted ingredient, salt from fries, then add another order of fries (now check).
+        # first order of fries should have no salt, but second one should have salt
+        return_val = self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        self.assertEqual(return_val, 0)
+        self.restaurant.add_to_order(self.john, [1])
+
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), [self.ingredient1_dish1, self.ingredient2_dish1])
+        self.assertEqual(actual_order.get_checkout()[2].get_ingredients(), self.dish1.get_ingredients())
+
+
+
     def test_remove_unwanted_ingredients(self):
         # validity test, add a valid unwanted ingredient, then remove it. ingredients should be complete and there should be no unwanted ingredients
         # should return 0
@@ -749,13 +761,17 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(actual_order.get_checkout()[1].get_ingredients(), self.dish3.get_ingredients())
         self.assertEqual(actual_order.get_checkout()[2].get_ingredients(), self.dish3.get_ingredients())
 
+        # for john, add an unwanted ingredient, salt from fries, then add another order of fries (now check).
+        # now, add remove unwanted ingredient (so both should now have salt in them). should return 0
 
+        self.restaurant.add_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        self.restaurant.add_to_order(self.john, [1])
+        return_val = self.restaurant.remove_unwanted_ingredients(ingredient.Ingredient("Salt", False), self.john, 1)
+        self.assertEqual(return_val, 0)
 
-
-
-
-
-
+        actual_order = (self.restaurant.get_customer_line_up()[0]).get_order()
+        self.assertEqual(actual_order.get_checkout()[0].get_ingredients(), self.dish1.get_ingredients())
+        self.assertEqual(actual_order.get_checkout()[2].get_ingredients(), self.dish1.get_ingredients())
 
 
 if __name__ == "__main__":
