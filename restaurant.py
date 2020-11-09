@@ -70,7 +70,7 @@ class Restaurant:
         checkout = []
         for num in order_nums:
             index = self.menu_nums.index(num)
-            checkout.append(self.menu[index])
+            checkout.append(copy.deepcopy(self.menu[index]))
         c_order = order.Order(checkout)
         return c_order
 
@@ -79,7 +79,7 @@ class Restaurant:
             invalid = dish.Dish("Invalid", -1, [], -1, [])
             return invalid
         index = self.menu_nums.index(order_num)
-        c_dish = self.menu[index]
+        c_dish = copy.deepcopy(self.menu[index])
         return c_dish
 
     # takes in name, phone number, and an array of order numbers, and adds the customer to customer line
@@ -129,7 +129,7 @@ class Restaurant:
             return invalid_list
         else:
             c_dish = self.order_nums_to_dish(order_num)
-            allergens = c_dish.get_allergens()
+            allergens = copy.deepcopy(c_dish.get_allergens())
             return allergens
 
     # list_ingredients method that returns the ingredients of a given dish
@@ -140,7 +140,7 @@ class Restaurant:
         # put into array to check if dish num is valid
         if validation == 0:
             # convert to dish
-            temp_dish = self.order_nums_to_dish(dish_num)
+            temp_dish = copy.deepcopy(self.order_nums_to_dish(dish_num))
             # return dish ingredient
             return temp_dish.get_ingredients()
         # else
